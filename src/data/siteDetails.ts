@@ -1,9 +1,9 @@
 export const siteDetails = {
-    siteName: 'Finwise',
-    siteUrl: 'https://finwise-omega.vercel.app/',
+    siteName: 'RallySphere',
+    siteUrl: 'https://RallySphere-omega.vercel.app/',
     metadata: {
-        title: 'Finwise - Next.js and Tailwind CSS Landing Page Template',
-        description: 'Finwise empowers businesses with cutting-edge technology solutions to drive success and efficiency.',
+        title: 'RallySphere - Next.js and Tailwind CSS Landing Page Template',
+        description: 'RallySphere empowers businesses with cutting-edge technology solutions to drive success and efficiency.',
     },
     language: 'en-us',
     locale: 'en-US',

@@ -1,15 +1,27 @@
+// components/Pricing/Pricing.tsx
+
+import React from "react";
 import PricingColumn from "./PricingColumn";
 
-import { tiers } from "@/data/pricing";
-
-const Pricing: React.FC = () => {
-    return (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {tiers.map((tier, index) => (
-                <PricingColumn key={tier.name} tier={tier} highlight={index === 1} />
-            ))}
-        </div>
-    )
+export interface Tier {
+    title: string;
+    price: string;
+    features: string[];
+    note?: string;
 }
 
-export default Pricing
+interface PricingProps {
+    tiers: Tier[];
+}
+
+const Pricing: React.FC<PricingProps> = ({ tiers }) => {
+    return (
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+            {tiers.map((tier, index) => (
+                <PricingColumn key={tier.title} tier={tier} highlight={index === 1} />
+            ))}
+        </div>
+    );
+};
+
+export default Pricing;

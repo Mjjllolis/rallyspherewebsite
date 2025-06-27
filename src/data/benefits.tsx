@@ -3,70 +3,70 @@ import { FiBarChart2, FiBriefcase, FiDollarSign, FiLock, FiPieChart, FiShield, F
 import { IBenefit } from "@/types"
 
 export const benefits: IBenefit[] = [
-    {
-        title: "Smart Budgeting",
-        description: "Take the guesswork out of managing your money. Our AI-powered budgeting tool adapts to your lifestyle and helps you stay on track.",
-        bullets: [
-            {
-                title: "Intelligent Categorization",
-                description: "Automatically sorts your transactions for crystal-clear insights.",
-                icon: <FiBarChart2 size={26} />
-            },
-            {
-                title: "Customizable Goals",
-                description: "Set and track financial objectives that matter to you.",
-                icon: <FiTarget size={26} />
-            },
-            {
-                title: "Predictive Analysis",
-                description: "Get ahead of your finances with spending forecasts and alerts.",
-                icon: <FiTrendingUp size={26} />
-            }
-        ],
-        imageSrc: "/images/mockup-1.webp"
-    },
-    {
-        title: "Seamless Investing",
-        description: "Start building wealth today, no financial degree required. Finwise makes investing accessible and straightforward.",
-        bullets: [
-            {
-                title: "Micro-Investing",
-                description: "Begin with as little as $1 and watch your money grow.",
-                icon: <FiDollarSign size={26} />
-            },
-            {
-                title: "Expert Portfolios",
-                description: "Choose from investment strategies tailored to your risk tolerance.",
-                icon: <FiBriefcase size={26} />
-            },
-            {
-                title: "Real-Time Performance",
-                description: "Track your investments with easy-to-understand metrics and visuals.",
-                icon: <FiPieChart size={26} />
-            }
-        ],
-        imageSrc: "/images/mockup-2.webp"
-    },
-    {
-        title: "Bank-Grade Security",
-        description: "Your financial data deserves the best protection. Rest easy knowing Finwise employs cutting-edge security measures.",
-        bullets: [
-            {
-                title: "Military-Grade Encryption",
-                description: "Your information is safeguarded with the highest level of encryption.",
-                icon: <FiLock size={26} />
-            },
-            {
-                title: "Biometric Authentication",
-                description: "Access your account securely with fingerprint or facial recognition.",
-                icon: <FiUser size={26} />
-            },
-            {
-                title: "Real-Time Fraud Detection",
-                description: "Our system constantly monitors for suspicious activity to keep your money safe.",
-                icon: <FiShield size={26} />
-            }
-        ],
-        imageSrc: "/images/mockup-1.webp"
-    },
+  {
+    title: "All-in-One Club Management",
+    description: "Simplify everything from RSVPs to payments in one modern app designed for social sports clubs.",
+    bullets: [
+      {
+        title: "Smart RSVPs & Waitlists",
+        description: "Easily manage events with automated confirmations, waitlists, and capacity tracking.",
+        icon: <FiTarget size={26} />
+      },
+      {
+        title: "Club Payments Made Easy",
+        description: "Collect fees or donations directly in-app with secure transactions.",
+        icon: <FiDollarSign size={26} />
+      },
+      {
+        title: "Membership & Coaching Tools",
+        description: "Enable optional club memberships, coaching features, and branded perks.",
+        icon: <FiBriefcase size={26} />
+      }
+    ],
+    imageSrc: "/images/mockup-1.webp"
+  },
+  {
+    title: "Gamified Player Experience",
+    description: "Engage your players with match tracking, challenges, and unlockable perks that keep them coming back.",
+    bullets: [
+      {
+        title: "RallyChallenges™",
+        description: "Complete in-app missions to earn points, badges, and exclusive rewards.",
+        icon: <FiTrendingUp size={26} />
+      },
+      {
+        title: "AI Match Feedback",
+        description: "Upload match videos and get RallyVision™ stats like consistency graphs and rally lengths.",
+        icon: <FiBarChart2 size={26} />
+      },
+      {
+        title: "Social & Skill Growth",
+        description: "Find partners, log progress, and level up your game with XP and leaderboards.",
+        icon: <FiUser size={26} />
+      }
+    ],
+    imageSrc: "/images/mockup-2.webp"
+  },
+  {
+    title: "Built-In Monetization",
+    description: "Grow your club without the overhead. RallySphere provides tools to drive revenue while simplifying admin.",
+    bullets: [
+      {
+        title: "Branded Merch Storefronts",
+        description: "Offer custom gear and generate revenue with zero upfront cost.",
+        icon: <FiShield size={26} />
+      },
+      {
+        title: "Analytics & Insights",
+        description: "Track engagement, player stats, and growth trends via your club dashboard.",
+        icon: <FiPieChart size={26} />
+      },
+      {
+        title: "Launch Support",
+        description: "Get help onboarding, promoting your club, and driving player signups from day one.",
+        icon: <FiLock size={26} />
+      }
+    ],
+    imageSrc: "/images/mockup-1.webp"
+  }
 ]
