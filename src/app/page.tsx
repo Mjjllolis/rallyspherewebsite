@@ -78,9 +78,8 @@ const HomePage: React.FC = () => {
         </Section>
 
         {/* <FAQ />
-
         <Stats />*/}
-        <CTA /> 
+        <CTA />
       </Container>
     </>
   );
