@@ -53,9 +53,9 @@ const Header: React.FC = () => {
                                 Download
                             </Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <ThemeToggle />
-                        </li>
+                        </li> */}
                     </ul>
 
                     {/* Mobile Menu Button */}
@@ -110,9 +110,9 @@ const Header: React.FC = () => {
                                 Get Started
                             </Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <ThemeToggle />
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </Transition>

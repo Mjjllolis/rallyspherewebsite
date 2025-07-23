@@ -23,7 +23,7 @@ export const benefits: IBenefit[] = [
         icon: <FiBriefcase size={26} />
       }
     ],
-    imageSrc: "/images/mockup-1.webp"
+    imageSrc: "/images/Mockup Images/AI Match Analysis.png"
   },
   {
     title: "Gamified Player Experience",
@@ -45,7 +45,7 @@ export const benefits: IBenefit[] = [
         icon: <FiUser size={26} />
       }
     ],
-    imageSrc: "/images/mockup-2.webp"
+    imageSrc: "/images/Mockup Images/Gamified.png"
   },
   {
     title: "Built-In Monetization",
@@ -67,6 +67,6 @@ export const benefits: IBenefit[] = [
         icon: <FiLock size={26} />
       }
     ],
-    imageSrc: "/images/mockup-1.webp"
+    imageSrc: "/images/Mockup Images/RSVP.png"
   }
 ]
