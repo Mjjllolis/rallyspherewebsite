@@ -69,13 +69,13 @@ const HomePage: React.FC = () => {
           />
         </Section>
 
-        <Section
+        {/* <Section
           id="testimonials"
           title="What Our Clients Say"
           description="Hear from those who have rely on us."
         >
           <Testimonials />
-        </Section>
+        </Section> */}
 
         {/* <FAQ />
         <Stats />*/}

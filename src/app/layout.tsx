@@ -47,10 +47,11 @@ export default function RootLayout({
         className={`${manrope.className} ${sourceSans.className} antialiased`}
       >
         {siteDetails.googleAnalyticsId && <GoogleAnalytics gaId={siteDetails.googleAnalyticsId} />}
-        <Header />
-        <main>
-          {children}
-        </main>
+        <div className="relative">
+          <main className="relative z-0">
+            {children}
+          </main>
+        </div>
         <Footer />
       </body>
     </html>

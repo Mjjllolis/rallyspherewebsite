@@ -23,7 +23,7 @@ export const benefits: IBenefit[] = [
         icon: <FiBriefcase size={26} />
       }
     ],
-    imageSrc: "/images/Mockup Images/Payments.png"
+    imageSrc: "/images/Mockup Images/Club Store.png"
   },
   {
     title: "Gamified Player Experience",
