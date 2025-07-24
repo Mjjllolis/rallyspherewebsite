@@ -19,7 +19,7 @@ const Hero: React.FC = () => {
       <div className="absolute left-0 right-0 bottom-0 backdrop-blur-[2px] h-40 bg-gradient-to-b from-transparent via-[rgba(233,238,255,0.5)] to-[rgba(202,208,230,0.5)]" />
 
       <div className="flex flex-col items-center justify-center h-full text-center">
-        <h1 className="text-4xl md:text-6xl md:leading-tight font-bold text-foreground max-w-lg md:max-w-2xl mx-auto">
+        <h1 className="text-4xl md:text-6xl md:leading-tight font-bold text-foreground max-w-lg md:max-w-2xl mx-auto paddingtop-10">
           All-in-One Platform for Pickleball Clubs
         </h1>
         <p className="mt-4 text-foreground max-w-lg mx-auto">

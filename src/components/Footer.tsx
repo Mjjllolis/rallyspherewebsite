@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
                                 {siteDetails.siteName}
                             </span>
                         </Link>
-                        <p className="mt-3.5 text-foreground-accent max-w-full text-center whitespace-nowrap overflow-hidden text-ellipsis">
+                        <p className="mt-3.5 text-foreground-accent max-w-full text-center whitespace-normal overflow-visible">
                             {footerDetails.subheading}
                         </p>
                     </div>
