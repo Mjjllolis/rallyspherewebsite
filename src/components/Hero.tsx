@@ -15,7 +15,7 @@ const Hero: React.FC = () => {
       <Header className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] z-50" />
       <section
         id="hero"
-        className="relative flex items-center justify-center w-full h-screen px-5 bg-cover bg-center"
+        className="relative flex items-center justify-center w-full h-screen px-5 bg-cover bg-center pt-28 md:pt-0"
         style={{ backgroundImage: "url('/images/Background.png')" }}
       >
         {/* Grid lines + white fade */}
@@ -43,7 +43,7 @@ const Hero: React.FC = () => {
               priority={true}
               unoptimized={true}
               alt="App Mockup"
-              className="relative z-10"
+              className="relative z-10 w-60 md:w-96"
             />
           </div>
         </div>
