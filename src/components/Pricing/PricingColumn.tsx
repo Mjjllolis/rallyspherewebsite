@@ -1,64 +1,84 @@
-import clsx from "clsx";
-import { BsFillCheckCircleFill } from "react-icons/bs";
-import { IPricing } from "@/types";
+'use client';
 
-import { Tier } from "./Pricing"; // or from "@/components/Pricing/Pricing"
+import clsx from "clsx";
+import { motion } from "framer-motion";
+import { BsFillCheckCircleFill } from "react-icons/bs";
+import { Tier } from "./Pricing";
 
 interface Props {
     tier: Tier;
     highlight?: boolean;
 }
-const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
-    const { title, price, features } = tier;
 
-    const isNumericPrice = typeof price === 'number';
+const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
+    const { title, features } = tier;
+
+    const isFree = title.toLowerCase().includes("free");
+    const isPro = title.toLowerCase().includes("pro");
+
+    // 001733]via - [#002B5C] to - [#004B94
+    const brandBlue = "#002B5C";
+    const lightBlue = "#E6F0FF";
+    const label = isFree ? "Free Plan" : "Pro Plan";
+
     return (
-        <div
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            whileHover={{ rotate: 0.5, scale: 1.02 }}
             className={clsx(
-                "w-full max-w-sm mx-auto bg-white rounded-xl border border-gray-200 shadow-sm transition-all lg:max-w-full",
-                { "shadow-xl ring-2 ring-secondary": highlight }
+                "w-full max-w-sm mx-auto rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-transform",
+                "border border-gray-200 bg-white"
             )}
         >
-            <div className="p-6 border-b border-gray-200 rounded-t-xl">
-                <h3 className="text-xl font-semibold mb-2 text-gray-800">{title}</h3>
-                <p className="text-4xl font-bold mb-4 text-secondary">
-                    {isNumericPrice ? `$${price}` : price}
-                    {isNumericPrice && (
-                        <span className="text-base font-normal text-gray-600">/mo</span>
-                    )}
-                </p>
-                <button
-                    className={clsx(
-                        "w-full py-3 px-4 rounded-full font-medium transition",
-                        {
-                            "bg-yellow-400 text-black hover:bg-yellow-300": highlight,
-                            "bg-gray-100 hover:bg-gray-200": !highlight,
-                        }
-                    )}
+            {isPro ? (
+                // 🔵 Pro plan: animated blue gradient header
+                <motion.div
+                    className="p-6 text-white bg-gradient-to-br from-[#001733] via-[#002B5C] to-[#004B94]"
+                    animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                    style={{ backgroundSize: "200% 200%" }}
                 >
-                    Get Started
-                </button>
-            </div>
-            <div className="p-6">
-                <p className="text-xs font-semibold text-gray-500 tracking-wide mb-3">
-                    FEATURES
+                    <h3 className="text-xl font-bold">{title}</h3>
+                    <p className="text-sm opacity-80">{label}</p>
+                </motion.div>
+            ) : (
+                // 🔹 Free plan: light blue header
+                <div className="p-6" style={{ backgroundColor: lightBlue }}>
+                    <h3 className="text-xl font-bold text-[#001733]">{title}</h3>
+                    <p className="text-sm text-[#001733]/80">{label}</p>
+                </div>
+            )}
+
+            <div className="p-6 bg-white">
+                <p className="text-xs font-bold text-gray-500 tracking-wide mb-3 uppercase">
+                    Included Features
                 </p>
-                {title !== "Player Free" && title !== "Club Free" && (
+
+                {isPro && (
                     <p className="text-sm text-gray-500 mb-4">
-                        Everything in basic, plus...
+                        Everything in Free, plus:
                     </p>
                 )}
+
                 <ul className="space-y-3 text-sm">
                     {features.map((feature, index) => (
-                        <li key={index} className="flex items-start">
-                            <BsFillCheckCircleFill className="h-5 w-5 text-blue-600 mt-1 mr-2" />
-                            <span className="text-gray-700">{feature}</span>
-                        </li>
+                        <motion.li
+                            key={index}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                            className="flex items-start"
+                        >
+                            <BsFillCheckCircleFill className="h-5 w-5 text-[#001733] mt-1 mr-2 shrink-0" />
+                            <span className="text-gray-800">{feature}</span>
+                        </motion.li>
                     ))}
                 </ul>
             </div>
-        </div>
-    )
-}
+        </motion.div>
+    );
+};
 
-export default PricingColumn
+export default PricingColumn;

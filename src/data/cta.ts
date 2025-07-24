@@ -1,6 +1,6 @@
 export const ctaDetails = {
-    heading: 'Join Over 1 Million Users To Transform Your Finances',
-    subheading: 'Your journey to fun starts here. Download RallySphere today!',
+    heading: 'Smash Into the Action with RallySphere',
+    subheading: 'From casual rallies to club showdowns, RallySphere is your all-in-one pickleball hub. Join the movement today!',
     appStoreUrl: '#',
     googlePlayUrl: '#'
 }
