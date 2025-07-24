@@ -47,7 +47,9 @@ export default function RootLayout({
         className={`${manrope.className} ${sourceSans.className} antialiased`}
       >
         {siteDetails.googleAnalyticsId && <GoogleAnalytics gaId={siteDetails.googleAnalyticsId} />}
-        <Header />
+        <div className="w-full">
+          <Header />
+        </div>
         <main>
           {children}
         </main>

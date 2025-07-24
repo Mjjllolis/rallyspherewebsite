@@ -30,7 +30,7 @@ const Hero: React.FC = () => {
           <PlayStoreButton dark />
         </div>
         <Image
-          src="/images/Logo.png"
+          src="/images/LogoDark.png"
           width={384}
           height={340}
           quality={100}

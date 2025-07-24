@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { Transition } from '@headlessui/react';
 import { HiOutlineXMark, HiBars3 } from 'react-icons/hi2';
 import Image from 'next/image';
 import Container from './Container';
@@ -16,9 +15,9 @@ const Header: React.FC = () => {
     const toggleMenu = () => setIsOpen(!isOpen);
 
     return (
-        <header className="bg-transparent fixed top-0 left-0 right-0 md:absolute z-50 mx-auto w-full pt-4 md:pt-0">
+        <header className="bg-transparent z-50 mx-auto w-full pb-[5px]">
             <Container className="!px-0">
-                <nav className="shadow-md md:shadow-none bg-white dark:bg-black text-black dark:text-white md:bg-transparent mx-auto flex justify-between items-center py-2 px-5 md:py-10">
+                <nav className="shadow-md bg-[#001B33] text-white mx-auto flex justify-between items-center py-2 px-5 md:py-10 rounded-b-xl bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2">
                         <Image
@@ -28,18 +27,18 @@ const Header: React.FC = () => {
                             height={28}
                             className="h-7 w-7" // Ensures it matches text-xl (28px)
                         />
-                        <span className="manrope text-xl font-semibold text-foreground dark:text-white cursor-pointer">
+                        <span className="manrope text-xl font-semibold text-white cursor-pointer">
                             {siteDetails.siteName}
                         </span>
                     </Link>
 
                     {/* Desktop Menu */}
-                    <ul className="hidden md:flex items-center space-x-6">
+                    <ul className="flex flex-wrap items-center space-x-6">
                         {menuItems.map((item) => (
                             <li key={item.text}>
                                 <Link
                                     href={item.url}
-                                    className="text-foreground dark:text-white hover:text-foreground-accent transition-colors"
+                                    className="text-white hover:text-gray-300 transition-colors"
                                 >
                                     {item.text}
                                 </Link>
@@ -48,9 +47,9 @@ const Header: React.FC = () => {
                         <li>
                             <Link
                                 href="#cta"
-                                className="text-black dark:text-black bg-primary hover:bg-primary-accent px-8 py-3 rounded-full transition-colors"
+                                className="text-black bg-primary hover:bg-primary-accent px-6 py-1 rounded-full transition-colors"
                             >
-                                Download
+                                Coming Soon
                             </Link>
                         </li>
                         {/* <li>
@@ -59,63 +58,8 @@ const Header: React.FC = () => {
                     </ul>
 
                     {/* Mobile Menu Button */}
-                    <div className="md:hidden flex items-center">
-                        <button
-                            onClick={toggleMenu}
-                            type="button"
-                            className="bg-primary text-black focus:outline-none rounded-full w-10 h-10 flex items-center justify-center"
-                            aria-controls="mobile-menu"
-                            aria-expanded={isOpen}
-                        >
-                            {isOpen ? (
-                                <HiOutlineXMark className="h-6 w-6" aria-hidden="true" />
-                            ) : (
-                                <HiBars3 className="h-6 w-6" aria-hidden="true" />
-                            )}
-                            <span className="sr-only">Toggle navigation</span>
-                        </button>
-                    </div>
                 </nav>
             </Container>
-
-            {/* Mobile Menu */}
-            <Transition
-                show={isOpen}
-                enter="transition ease-out duration-200 transform"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="transition ease-in duration-75 transform"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-            >
-                <div id="mobile-menu" className="md:hidden bg-white dark:bg-black shadow-lg">
-                    <ul className="flex flex-col space-y-4 pt-1 pb-6 px-6">
-                        {menuItems.map((item) => (
-                            <li key={item.text}>
-                                <Link
-                                    href={item.url}
-                                    className="text-foreground dark:text-white hover:text-primary block"
-                                    onClick={toggleMenu}
-                                >
-                                    {item.text}
-                                </Link>
-                            </li>
-                        ))}
-                        <li>
-                            <Link
-                                href="#cta"
-                                className="text-black bg-primary hover:bg-primary-accent px-5 py-2 rounded-full block w-fit"
-                                onClick={toggleMenu}
-                            >
-                                Get Started
-                            </Link>
-                        </li>
-                        {/* <li>
-                            <ThemeToggle />
-                        </li> */}
-                    </ul>
-                </div>
-            </Transition>
         </header>
     );
 };
