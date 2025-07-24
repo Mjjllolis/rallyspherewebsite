@@ -1,8 +1,7 @@
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fnexi-launch%2FRallySphere-landing-page)
 
-# RallySphere - Next.js + Tailwind Landing Page Template
+# RallySphere - All-in-One Platform for Clubs and Players
 
-RallySphere is a lightweight, easily configurable, and customizable **Next.js** and **Tailwind CSS** landing page template. It’s built to be adaptable, performant, and perfect for any product launch, portfolio, or promotional site.
 
 Try out the demo here: [https://RallySphere-omega.vercel.app](https://RallySphere-omega.vercel.app).
 

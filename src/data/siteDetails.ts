@@ -2,7 +2,7 @@ export const siteDetails = {
     siteName: 'RallySphere',
     siteUrl: 'https://RallySphere-omega.vercel.app/',
     metadata: {
-        title: 'RallySphere - Next.js and Tailwind CSS Landing Page Template',
+        title: 'RallySphere - All-in-One Platform for Clubs and Players',
         description: 'RallySphere empowers businesses with cutting-edge technology solutions to drive success and efficiency.',
     },
     language: 'en-us',
