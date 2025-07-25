@@ -43,7 +43,7 @@ const Hero: React.FC = () => {
               priority={true}
               unoptimized={true}
               alt="App Mockup"
-              className="relative z-10 w-60 md:w-96 paddingbottom-10"
+              className="relative z-10 w-60 md:w-96 mb-10"
             />
           </div>
         </div>
