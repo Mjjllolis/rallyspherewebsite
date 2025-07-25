@@ -16,11 +16,11 @@ export const footerDetails: {
         {
             text: "Pricing",
             url: "#pricing"
-        },
-        {
-            text: "Testimonials",
-            url: "#testimonials"
-        }
+        }// },
+        // {
+        //     text: "Testimonials",
+        //     url: "#testimonials"
+        // }
     ],
     //email: 'jared.serpas@rallysphere.com',
     //telephone: '+1 (123) 456-7890',
