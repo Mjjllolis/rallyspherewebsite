@@ -15,7 +15,7 @@ const Hero: React.FC = () => {
       <Header className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] z-50" />
       <section
         id="hero"
-        className="relative flex items-center justify-center w-full h-screen px-5 bg-cover bg-center pt-28 md:pt-0"
+        className="relative flex items-center justify-center w-full h-screen px-5 bg-cover bg-center pt-40 md:pt-48"
         style={{ backgroundImage: "url('/images/Background.png')" }}
       >
         {/* Grid lines + white fade */}
