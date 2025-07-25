@@ -7,12 +7,12 @@ const Logos: React.FC = () => {
             {/* Horizontal scroll section for example club logos */}
             <div className="mt-6 overflow-x-auto flex justify-center">
                 <div className="flex gap-10 w-max px-2 items-center">
-                    {["Club1.png", "Club2.png", "Club3.png", "Club4.png"].map((logo, index) => (
+                    {["Club1.jpg"].map((logo, index) => (
                         <img
                             key={index}
                             src={`/images/${logo}`}
                             alt={`Club Logo ${index + 1}`}
-                            className="w-40 h-24 flex-shrink-0 object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                            className="w-40 h-24 flex-shrink-0 object-contain grayscale hover:grayscale-0 transition-all duration-300 rounded-lg"
                         />
                     ))}
                 </div>
