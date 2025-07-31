@@ -51,7 +51,8 @@ const HomePage: React.FC = () => {
                   "Host unlimited events & RSVPs",
                   "Sell coaching, passes, and merch",
                   "Basic dashboards & storefront setup",
-                  "Lightweight analytics & player logs"
+                  "Lightweight analytics & player logs",
+                  "Tournament & League Management"
                 ],
                 note: "3–15% transaction fee on all sales"
               },
@@ -62,7 +63,8 @@ const HomePage: React.FC = () => {
                   "Detailed analytics & engagement reports",
                   "Custom QR storefront & branding",
                   "Multi-admin + coaching tools",
-                  "Access to beta features like RallyVision™"
+                  "Access to beta features like RallyVision™",
+                  "Tournament & League Management"
                 ]
               }
             ]}

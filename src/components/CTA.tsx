@@ -178,6 +178,8 @@ const CTA = () => {
                                     <option value="Branded Storefronts">Branded Storefronts</option>
                                     <option value="Analytics & Growth">Analytics & Growth</option>
                                     <option value="Sponsor Exposure">Sponsor Exposure</option>
+                                    <option value="Tournament & League Management">Tournament & League Management</option>
+
                                 </select>
                             </div>
 
