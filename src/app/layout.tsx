@@ -6,6 +6,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { siteDetails } from '@/data/siteDetails';
 
+import { Analytics } from "@vercel/analytics/next"
+
 import "./globals.css";
 
 const manrope = Manrope({ subsets: ['latin'] });
@@ -50,6 +52,7 @@ export default function RootLayout({
         <div className="relative">
           <main className="relative z-0">
             {children}
+            <Analytics />
           </main>
         </div>
         <Footer />
