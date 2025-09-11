@@ -18,8 +18,8 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <header className={`bg-transparent z-50 mx-auto w-[95%] rounded-b-2xl pb-[5px] ${className}`}>
-      <Container className="!px-0">
+    <header className={`bg-transparent z-50 mx-auto w-[90%] rounded-b-2xl pb-[5px] ${className}`}>
+      <Container className="!px-0 !max-w-none">
         <nav className="shadow-md bg-[#001B33] text-white mx-auto flex justify-between items-center py-4 px-6 md:py-10 md:pr-8 md:pl-5 rounded-b-xl bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]">
           <Link href="/" className="flex items-center gap-3">
             <Image src="/favicon.ico" alt="Logo" width={40} height={40} className="h-8 w-8 sm:h-10 sm:w-10" />

@@ -24,6 +24,11 @@
 	--hero-background: #1e1e1e;
 }
 
+/* Custom gradient for hero section */
+.hero-gradient {
+	background: linear-gradient(135deg, #1A202C 0%, #2D3748 50%, #2B6CB0 100%);
+}
+
 /* Ensure scroll behavior works in Safari */
 html {
 	@apply scroll-smooth;

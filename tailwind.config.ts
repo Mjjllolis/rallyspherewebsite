@@ -18,6 +18,20 @@ const config: Config = {
         "foreground-accent": "var(--foreground-accent)",
         "hero-background": "var(--hero-background)",
       },
+      width: {
+        '30': '7.5rem', // 120px
+        '64': '16rem', // 256px
+        '72': '18rem', // 288px
+        '80': '20rem', // 320px
+        '96': '24rem', // 384px
+      },
+      height: {
+        '30': '7.5rem', // 120px
+        '64': '16rem', // 256px
+        '72': '18rem', // 288px
+        '80': '20rem', // 320px
+        '96': '24rem', // 384px
+      },
     },
   },
   plugins: [],

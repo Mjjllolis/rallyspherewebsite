@@ -46,7 +46,7 @@ const HomePage: React.FC = () => {
               },
               {
                 title: "Clubs & Facilities",
-                price: "Free",
+                price: "Small Transaction Fee",
                 subtitle: "Whether you're an organizer, group, or a facility, we've got you covered.",
                 features: [
                   "Host unlimited events & RSVPs",
@@ -55,7 +55,7 @@ const HomePage: React.FC = () => {
                   "Lightweight analytics & player logs",
                   "Tournament & League Management"
                 ],
-                note: "Free to download with no monthly subscriptions— just a small transaction fee per booking or purchase."
+                note: "No monthly subscriptions or upfront costs— just a small transaction fee per booking or purchase."
               }
             ]}
           />
@@ -71,8 +71,8 @@ const HomePage: React.FC = () => {
 
         {/* <FAQ />
         <Stats />*/}
-        <CTA />
       </Container>
+      <CTA />
     </>
   );
 };

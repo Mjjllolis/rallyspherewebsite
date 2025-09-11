@@ -29,8 +29,8 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
             transition={{ duration: 0.5, ease: "easeOut" }}
             whileHover={{ rotate: 0.5, scale: 1.02 }}
             className={clsx(
-                "w-full max-w-sm mx-auto rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-transform",
-                "border border-gray-200 bg-white"
+                "w-full h-full rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-transform",
+                "border border-gray-200 bg-white flex flex-col"
             )}
         >
             {isPro ? (
@@ -66,7 +66,7 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
                 </div>
             )}
 
-            <div className="p-6 bg-white">
+            <div className="p-6 bg-white flex-1">
                 <p className="text-xs font-bold text-gray-500 tracking-wide mb-3 uppercase">
                     Included Features
                 </p>

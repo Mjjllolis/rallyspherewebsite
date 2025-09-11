@@ -1,6 +1,6 @@
 const Logos: React.FC = () => {
     return (
-        <section id="logos" className="py-20 px-5 bg-background">
+        <section id="logos" className="py-20 px-5 bg-white relative z-10">
             <p className="text-lg font-medium text-center">
                 Trusted by <span className="text-secondary">Leading Pickleball Clubs</span>
             </p>
