@@ -33,6 +33,7 @@
 html {
 	@apply scroll-smooth;
 	-webkit-font-smoothing: antialiased;
+	overflow-x: hidden;
 }
 
 /* Fallbacks for Safari rendering quirks */
@@ -46,6 +47,8 @@ body {
 	font-style: normal;
 	margin: 0;
 	padding: 0;
+	overflow-x: hidden;
+	width: 100%;
 }
 
 /* Fix text-wrap issues in older Safari */
@@ -85,4 +88,23 @@ h6 {
 /* Margin fixes for Safari not honoring :last-of-type properly */
 .benefit-section:last-of-type > div {
 	@apply mb-10;
+}
+
+/* Mobile overflow fixes */
+* {
+	box-sizing: border-box;
+}
+
+/* Prevent horizontal scroll on mobile */
+@media (max-width: 768px) {
+	body, html {
+		max-width: 100vw;
+		overflow-x: hidden;
+	}
+	
+	/* Ensure all sections stay within viewport */
+	section {
+		max-width: 100vw;
+		overflow-x: hidden;
+	}
 }
