@@ -9,7 +9,7 @@ import PlayStoreButton from './PlayStoreButton';
 const WEBHOOK_URL = 'https://prod-69.westus.logic.azure.com:443/workflows/e6558ca33ec14493ae800efb2d84d5e3/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=9IHmuYEn4q98L528_bKeSAq_Fv-g2SyFB-05kaRcTiQ';
 
 const baseInputStyles =
-    'w-full rounded-xl bg-white/10 border border-white/20 text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#007CFF] placeholder-white/70 transition appearance-none';
+    'w-full rounded-xl bg-white/10 border border-white/20 text-white px-4 py-4 sm:py-3 focus:outline-none focus:ring-2 focus:ring-[#007CFF] placeholder-white/70 transition appearance-none text-base min-h-[48px]';
 
 const CTA = () => {
     const [formData, setFormData] = useState({
@@ -75,15 +75,15 @@ const CTA = () => {
             {/* Blue background */}
             <div className="absolute inset-0 z-0 h-full w-full rounded-3xl bg-gradient-to-br from-[#001733] via-[#002B5C] to-[#004B94] opacity-95" />
 
-            <div className="relative z-10 h-full w-full mx-auto py-12 sm:py-20 px-6">
+            <div className="relative z-10 h-full w-full mx-auto py-12 sm:py-16 md:py-20 px-6 sm:px-8 md:px-10">
 
-                <div className="flex flex-col items-center text-white text-center max-w-4xl mx-auto">
-                    <h2 className="text-2xl sm:text-3xl md:text-5xl font-semibold mb-4 max-w-2xl">
+                <div className="flex flex-col items-center text-white text-center max-w-4xl mx-auto space-y-6">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold max-w-xs sm:max-w-lg md:max-w-2xl px-4">
                         {ctaDetails.heading}
                     </h2>
-                    <p className="mx-auto max-w-xl md:px-5 mb-6">{ctaDetails.subheading}</p>
+                    <p className="mx-auto max-w-sm sm:max-w-xl px-4 text-base sm:text-lg leading-relaxed">{ctaDetails.subheading}</p>
 
-                    <div className="flex flex-col sm:flex-row items-center sm:gap-4 mb-10">
+                    <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 pt-2">
                         <AppStoreButton />
                         <PlayStoreButton />
                     </div>
@@ -96,9 +96,9 @@ const CTA = () => {
                     ) : (
                         <form
                             onSubmit={handleSubmit}
-                            className="w-full bg-white/5 backdrop-blur-sm rounded-2xl p-6 sm:p-8 space-y-5"
+                            className="w-full bg-white/5 backdrop-blur-sm rounded-2xl p-6 sm:p-8 md:p-10 space-y-6 mt-8"
                         >
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                                 <input
                                     name="name"
                                     value={formData.name}
@@ -122,20 +122,20 @@ const CTA = () => {
                                     placeholder="Phone"
                                     className={baseInputStyles}
                                 />
-                                <div className="flex flex-col gap-2 text-left">
-                                    <span className="text-sm font-medium mb-1">I am a...</span>
-                                    <div className="flex gap-4">
+                                <div className="flex flex-col gap-3 text-left sm:col-span-2">
+                                    <span className="text-sm font-medium mb-2">I am a...</span>
+                                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                                         {['Player', 'Club', 'Sponsor'].map(option => (
-                                            <label key={option} className="inline-flex items-center gap-2">
+                                            <label key={option} className="inline-flex items-center gap-3 py-2">
                                                 <input
                                                     type="radio"
                                                     name="category"
                                                     value={option}
                                                     checked={formData.category === option}
                                                     onChange={handleChange}
-                                                    className="form-radio text-[#007CFF] focus:ring-[#007CFF]"
+                                                    className="form-radio text-[#007CFF] focus:ring-[#007CFF] w-4 h-4"
                                                 />
-                                                <span>{option}</span>
+                                                <span className="text-base">{option}</span>
                                             </label>
                                         ))}
                                     </div>
@@ -144,24 +144,24 @@ const CTA = () => {
 
                             <AnimatePresence mode="wait">
                                 {category === 'Club' && (
-                                    <motion.div key="club" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <motion.div key="club" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                                         <div>
-                                            <label className="block text-sm font-medium mb-1">Club Name</label>
+                                            <label className="block text-sm font-medium mb-2">Club Name</label>
                                             <input name="clubName" value={formData.clubName} onChange={handleChange} className={baseInputStyles} />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium mb-1">Club Size</label>
+                                            <label className="block text-sm font-medium mb-2">Club Size</label>
                                             <input name="clubSize" value={formData.clubSize} onChange={handleChange} className={baseInputStyles} />
                                         </div>
-                                        <div>
-                                            <label className="block text-sm font-medium mb-1">Club Location</label>
+                                        <div className="sm:col-span-2">
+                                            <label className="block text-sm font-medium mb-2">Club Location</label>
                                             <input name="clubLocation" value={formData.clubLocation} onChange={handleChange} className={baseInputStyles} />
                                         </div>
                                     </motion.div>
                                 )}
                                 {category === 'Sponsor' && (
                                     <motion.div key="sponsor" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                                        <label className="block text-sm font-medium mb-1">Sponsor Type</label>
+                                        <label className="block text-sm font-medium mb-2">Sponsor Type</label>
                                         <input name="sponsorType" value={formData.sponsorType} onChange={handleChange} className={baseInputStyles} />
                                     </motion.div>
                                 )}
@@ -184,14 +184,14 @@ const CTA = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium mb-1">Additional Comments</label>
+                                <label className="block text-sm font-medium mb-2">Additional Comments</label>
                                 <textarea name="message" value={formData.message} onChange={handleChange} rows={4} className={baseInputStyles} placeholder="Let us know anything else!" />
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full py-3 rounded-xl bg-white text-[#001733] font-semibold transition hover:bg-gray-100 disabled:opacity-50"
+                                className="w-full py-4 px-6 rounded-xl bg-white text-[#001733] font-semibold text-lg transition hover:bg-gray-100 disabled:opacity-50 mt-6"
                             >
                                 {loading ? 'Submitting...' : 'Submit'}
                             </button>

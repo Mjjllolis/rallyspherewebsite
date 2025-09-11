@@ -45,8 +45,9 @@ const HomePage: React.FC = () => {
                 ]
               },
               {
-                title: "Club (Free)",
-                price: "$0",
+                title: "Clubs & Facilities",
+                price: "Free",
+                subtitle: "Whether you're an organizer, group, or a facility, we've got you covered.",
                 features: [
                   "Host unlimited events & RSVPs",
                   "Sell coaching, passes, and merch",
@@ -54,18 +55,7 @@ const HomePage: React.FC = () => {
                   "Lightweight analytics & player logs",
                   "Tournament & League Management"
                 ],
-                note: "3–15% transaction fee on all sales"
-              },
-              {
-                title: "Club Pro",
-                price: "$19–$39/mo",
-                features: [
-                  "Detailed analytics & engagement reports",
-                  "Custom QR storefront & branding",
-                  "Multi-admin + coaching tools",
-                  "Access to beta features like RallyVision™",
-                  "Tournament & League Management"
-                ]
+                note: "Free to download with no monthly subscriptions— just a small transaction fee per booking or purchase."
               }
             ]}
           />

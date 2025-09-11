@@ -8,6 +8,7 @@ export interface Tier {
     price: string;
     features: string[];
     note?: string;
+    subtitle?: string;
 }
 
 interface PricingProps {
@@ -16,7 +17,7 @@ interface PricingProps {
 
 const Pricing: React.FC<PricingProps> = ({ tiers }) => {
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {tiers.map((tier, index) => (
                 <PricingColumn key={tier.title} tier={tier} highlight={index === 1} />
             ))}
