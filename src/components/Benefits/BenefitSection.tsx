@@ -108,53 +108,30 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                             "lg:col-start-2": imageAtRight && imageSrc,
                             "max-w-5xl mx-auto": !imageSrc
                         })}
-                        initial={{ opacity: 0, x: imageSrc ? (imageAtRight ? 50 : -50) : 0, y: !imageSrc ? 30 : 0 }}
-                        whileInView={{ opacity: 1, x: 0, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
                     >
                         {!imageSrc ? (
                             // Special box layout for sections without mockup (Rally Credits)
-                            <div className="p-8 lg:p-12 rounded-3xl bg-white/10 backdrop-blur-md shadow-2xl border-2 border-white/20">
+                            <div className="p-8 lg:p-12 rounded-3xl bg-white/10 backdrop-blur-sm shadow-2xl border-2 border-white/20">
                                 <div className="space-y-6">
-                                    <motion.h3
-                                        className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white text-center"
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.3, delay: 0.1 }}
-                                    >
+                                    <h3 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white text-center">
                                         {title}
-                                    </motion.h3>
-                                    <motion.p
-                                        className="text-lg lg:text-xl text-white/90 leading-relaxed text-center"
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.3, delay: 0.15 }}
-                                    >
+                                    </h3>
+                                    <p className="text-lg lg:text-xl text-white/90 leading-relaxed text-center">
                                         {description}
-                                    </motion.p>
+                                    </p>
                                 </div>
 
-                                <motion.div
-                                    className="grid md:grid-cols-3 gap-6 mt-10"
-                                    initial={{ opacity: 0 }}
-                                    whileInView={{ opacity: 1 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.3, delay: 0.2 }}
-                                >
+                                <div className="grid md:grid-cols-3 gap-6 mt-10">
                                     {bullets.map((item, index) => (
-                                        <motion.div
+                                        <div
                                             key={index}
-                                            className="flex flex-col items-center text-center p-6 rounded-2xl bg-white/10 backdrop-blur-sm hover:bg-white/20 hover:shadow-xl transition-all group border border-white/20"
-                                            initial={{ opacity: 0, y: 20 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 0.3, delay: 0.25 + index * 0.05 }}
-                                            whileHover={{ y: -5, scale: 1.02 }}
+                                            className="flex flex-col items-center text-center p-6 rounded-2xl bg-white/10 hover:bg-white/20 transition-colors group border border-white/20"
                                         >
-                                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white shadow-lg group-hover:shadow-cyan-500/50 group-hover:scale-110 transition-all mb-4">
+                                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white shadow-lg mb-4">
                                                 {item.icon}
                                             </div>
                                             <h4 className="text-xl font-bold mb-2 text-white group-hover:text-cyan-300 transition-colors">
@@ -163,52 +140,29 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                                             <p className="text-sm text-white/80 leading-relaxed">
                                                 {item.description}
                                             </p>
-                                        </motion.div>
+                                        </div>
                                     ))}
-                                </motion.div>
+                                </div>
                             </div>
                         ) : (
                             // Original layout for sections with mockup
                             <>
                                 <div className="space-y-4">
-                                    <motion.h3
-                                        className="text-4xl lg:text-5xl xl:text-6xl font-bold bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent"
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.3, delay: 0.05 }}
-                                    >
+                                    <h3 className="text-4xl lg:text-5xl xl:text-6xl font-bold bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent">
                                         {title}
-                                    </motion.h3>
-                                    <motion.p
-                                        className="text-lg lg:text-xl text-gray-600 leading-relaxed"
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.3, delay: 0.1 }}
-                                    >
+                                    </h3>
+                                    <p className="text-lg lg:text-xl text-gray-600 leading-relaxed">
                                         {description}
-                                    </motion.p>
+                                    </p>
                                 </div>
 
-                                <motion.div
-                                    className="space-y-5"
-                                    initial={{ opacity: 0 }}
-                                    whileInView={{ opacity: 1 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.3, delay: 0.15 }}
-                                >
+                                <div className="space-y-5">
                                     {bullets.map((item, index) => (
-                                        <motion.div
+                                        <div
                                             key={index}
-                                            className="flex gap-4 group p-4 rounded-xl bg-white/50 backdrop-blur-sm hover:bg-white/80 transition-all shadow-sm hover:shadow-md"
-                                            initial={{ opacity: 0, x: -20 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 0.3, delay: 0.2 + index * 0.05 }}
-                                            whileHover={{ x: 5 }}
+                                            className="flex gap-4 group p-4 rounded-xl bg-white/50 hover:bg-white/80 transition-colors shadow-sm hover:shadow-md"
                                         >
-                                            <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all">
+                                            <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white shadow-lg">
                                                 {item.icon}
                                             </div>
                                             <div className="flex-1">
@@ -219,26 +173,24 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                                                     {item.description}
                                                 </p>
                                             </div>
-                                        </motion.div>
+                                        </div>
                                     ))}
-                                </motion.div>
+                                </div>
                             </>
                         )}
                     </motion.div>
 
                     {/* Phone Mockup Side */}
                     {imageSrc && (
-                        <motion.div
-                            className={clsx("relative w-full max-w-[300px] mx-auto lg:max-w-none lg:mx-0", { "lg:col-start-1 lg:row-start-1": imageAtRight })}
-                            initial={{ opacity: 0, rotateY: imageAtRight ? -30 : 30 }}
-                            whileInView={{ opacity: 1, rotateY: imageAtRight ? -15 : 15 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, ease: "easeOut" }}
+                        <div className={clsx("relative w-full max-w-[300px] mx-auto lg:max-w-none lg:mx-0", { "lg:col-start-1 lg:row-start-1": imageAtRight })}
                             style={{ perspective: '2000px' }}
                         >
                             <div
                                 className="relative w-full h-full"
-                                style={{ transformStyle: 'preserve-3d' }}
+                                style={{
+                                    transformStyle: 'preserve-3d',
+                                    transform: `rotateY(${imageAtRight ? -15 : 15}deg)`
+                                }}
                             >
                                 {/* Glow behind phone */}
                                 <div className={clsx("absolute inset-0 blur-3xl opacity-30 rounded-3xl pointer-events-none", {
@@ -256,7 +208,7 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                                     draggable={false}
                                 />
                             </div>
-                        </motion.div>
+                        </div>
                     )}
                 </div>
             </div>

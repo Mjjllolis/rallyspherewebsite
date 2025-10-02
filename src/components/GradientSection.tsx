@@ -1,7 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
-
 interface GradientSectionProps {
   children: React.ReactNode;
   className?: string;
@@ -17,13 +15,7 @@ export default function GradientSection({ children, className = '', variant = 'd
   };
 
   return (
-    <motion.div
-      className={`relative w-full ${gradients[variant]} ${className}`}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.8 }}
-    >
+    <div className={`relative w-full ${gradients[variant]} ${className}`}>
       {/* Animated gradient orbs in background - full width */}
       <div className="absolute inset-0 w-full overflow-hidden pointer-events-none opacity-40">
         <div className="absolute top-10 left-10 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }} />
@@ -35,6 +27,6 @@ export default function GradientSection({ children, className = '', variant = 'd
       <div className="relative z-10 w-full">
         {children}
       </div>
-    </motion.div>
+    </div>
   );
 }

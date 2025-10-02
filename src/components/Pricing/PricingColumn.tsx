@@ -23,14 +23,9 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
     const label = isFree && !isClubs ? "Free Plan" : isPro ? "Pro Plan" : isClubs ? "All-in-One Solution" : "Plan";
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            whileHover={{ y: -10, scale: 1.03 }}
+        <div
             className={clsx(
-                "w-full h-full rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all relative",
+                "w-full h-full rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow relative",
                 "border-2 border-blue-200/50 bg-white flex flex-col"
             )}
         >
@@ -38,29 +33,19 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
             <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-cyan-200/30 to-transparent rounded-bl-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-blue-200/30 to-transparent rounded-tr-3xl pointer-events-none" />
             {isPro ? (
-                // 🔵 Pro plan: animated blue gradient header
-                <motion.div
-                    className="p-6 text-white bg-gradient-to-br from-[#001733] via-[#002B5C] to-[#004B94]"
-                    animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                    transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                    style={{ backgroundSize: "200% 200%" }}
-                >
+                // 🔵 Pro plan: gradient header
+                <div className="p-6 text-white bg-gradient-to-br from-[#001733] via-[#002B5C] to-[#004B94]">
                     <h3 className="text-xl font-bold">{title}</h3>
                     <p className="text-sm opacity-80">{label}</p>
                     {subtitle && <p className="text-sm opacity-90 mt-2">{subtitle}</p>}
-                </motion.div>
+                </div>
             ) : isClubs ? (
                 // 🟢 Clubs: special styling for combined plan
-                <motion.div
-                    className="p-6 text-white bg-gradient-to-br from-[#001733] via-[#002B5C] to-[#004B94]"
-                    animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                    style={{ backgroundSize: "200% 200%" }}
-                >
+                <div className="p-6 text-white bg-gradient-to-br from-[#001733] via-[#002B5C] to-[#004B94]">
                     <h3 className="text-xl font-bold">{title}</h3>
                     <p className="text-sm opacity-80">{label}</p>
                     {subtitle && <p className="text-sm opacity-90 mt-2 italic">{subtitle}</p>}
-                </motion.div>
+                </div>
             ) : (
                 // 🔹 Free plan: light blue header
                 <div className="p-6 relative overflow-hidden" style={{ backgroundColor: lightBlue }}>
@@ -86,14 +71,10 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
                     {features.map((feature, index) => {
                         const isProFeature = feature.includes("(Pro)");
                         const displayFeature = feature.replace(" (Pro)", "");
-                        
+
                         return (
-                            <motion.li
+                            <li
                                 key={index}
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                                whileHover={{ x: 3 }}
                                 className="flex items-start group"
                             >
                                 <div className="p-1 rounded-full bg-blue-100 group-hover:bg-blue-200 transition-colors mt-0.5">
@@ -107,7 +88,7 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
                                         </span>
                                     )}
                                 </span>
-                            </motion.li>
+                            </li>
                         );
                     })}
                 </ul>
@@ -120,7 +101,7 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
                     </div>
                 )}
             </div>
-        </motion.div>
+        </div>
     );
 };
 
