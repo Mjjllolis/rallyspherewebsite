@@ -32,6 +32,10 @@ const config: Config = {
         '80': '20rem', // 320px
         '96': '24rem', // 384px
       },
+      perspective: {
+        '1000': '1000px',
+        '2000': '2000px',
+      },
     },
   },
   plugins: [],

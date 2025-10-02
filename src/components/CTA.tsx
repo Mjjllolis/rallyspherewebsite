@@ -72,8 +72,26 @@ const CTA = () => {
             {/* Radial overlay */}
             <div className="absolute inset-0 -z-10 rounded-3xl bg-[radial-gradient(circle_600px_at_50%_500px,#1C1C02,transparent)]" />
 
-            {/* Blue background */}
-            <div className="absolute inset-0 z-0 h-full w-full rounded-3xl bg-gradient-to-br from-[#001733] via-[#002B5C] to-[#004B94] opacity-95" />
+            {/* Animated gradient background */}
+            <motion.div
+                className="absolute inset-0 z-0 h-full w-full rounded-3xl bg-gradient-to-br from-[#001733] via-[#002B5C] to-[#004B94] opacity-95"
+                animate={{
+                    background: [
+                        'linear-gradient(135deg, #001733 0%, #002B5C 50%, #004B94 100%)',
+                        'linear-gradient(135deg, #002B5C 0%, #004B94 50%, #001733 100%)',
+                        'linear-gradient(135deg, #004B94 0%, #001733 50%, #002B5C 100%)',
+                        'linear-gradient(135deg, #001733 0%, #002B5C 50%, #004B94 100%)',
+                    ]
+                }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            />
+
+            {/* Floating gradient orbs */}
+            <div className="absolute inset-0 z-0 overflow-hidden rounded-3xl opacity-40">
+                <div className="absolute -top-20 -left-20 w-96 h-96 bg-cyan-400/30 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '10s' }} />
+                <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-blue-400/30 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '12s', animationDelay: '3s' }} />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '14s', animationDelay: '6s' }} />
+            </div>
 
             <div className="relative z-10 h-full w-full mx-auto py-12 sm:py-16 md:py-20 px-6 sm:px-8 md:px-10">
 

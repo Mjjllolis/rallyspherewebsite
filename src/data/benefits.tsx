@@ -32,28 +32,6 @@ export const benefits: IBenefit[] = [
     imageSrc: "/images/Mockup Images/Club Store.png"
   },
   {
-    title: "Gamified Player Experience",
-    description: "Engage your players with match tracking, challenges, and unlockable perks that keep them coming back.",
-    bullets: [
-      {
-        title: "RallyChallenges™",
-        description: "Complete in-app missions to earn points, badges, and exclusive rewards.",
-        icon: <FiTrendingUp size={26} />
-      },
-      {
-        title: "AI Match Feedback",
-        description: "Upload match videos and get RallyVision™ stats like consistency graphs and rally lengths.",
-        icon: <FiBarChart2 size={26} />
-      },
-      {
-        title: "Social & Skill Growth",
-        description: "Find partners, log progress, and level up your game with XP and leaderboards.",
-        icon: <FiUser size={26} />
-      }
-    ],
-    imageSrc: "/images/Mockup Images/Gamified.png"
-  },
-  {
     title: "Built-In Monetization",
     description: "Grow your club without the overhead. RallySphere provides tools to drive revenue while simplifying admin.",
     bullets: [
@@ -74,5 +52,26 @@ export const benefits: IBenefit[] = [
       }
     ],
     imageSrc: "/images/Mockup Images/RSVP.png"
+  },
+  {
+    title: "Rally Credits",
+    description: "Earn credits from events, redeem them for merch or discounts, and give clubs powerful insights into player engagement.",
+    bullets: [
+      {
+        title: "Earn Credits from Events",
+        description: "Players gain Rally Credits by joining and participating in club events.",
+        icon: <FiTrendingUp size={26} />
+      },
+      {
+        title: "Redeem for Merch & Discounts",
+        description: "Use credits to unlock exclusive merchandise, event discounts, and special perks.",
+        icon: <FiDollarSign size={26} />
+      },
+      {
+        title: "Gamified Club Analytics",
+        description: "Clubs can see who joins, how often players participate, and other engagement statistics.",
+        icon: <FiBarChart2 size={26} />
+      }
+    ]
   }
 ]

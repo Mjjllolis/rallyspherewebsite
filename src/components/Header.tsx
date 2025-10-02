@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { HiOutlineXMark, HiBars3 } from 'react-icons/hi2';
 import Image from 'next/image';
 import Container from './Container';
@@ -15,12 +15,35 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ className = '' }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const headerRef = useRef<HTMLElement>(null);
+
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const parallaxOffset = scrollY * 0.5;
+
   return (
-    <header className={`bg-transparent z-50 mx-auto w-[90%] rounded-b-2xl pb-[5px] ${className}`}>
+    <header
+      ref={headerRef}
+      className={`bg-transparent z-50 mx-auto w-[90%] rounded-b-2xl pb-[5px] ${className}`}
+    >
       <Container className="!px-0 !max-w-none">
-        <nav className="shadow-md bg-[#001B33] text-white mx-auto flex justify-between items-center py-4 px-6 md:py-10 md:pr-8 md:pl-5 rounded-b-xl bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]">
+        <nav
+          className="shadow-md bg-[#001B33] text-white mx-auto flex justify-between items-center py-4 px-6 md:py-10 md:pr-8 md:pl-5 rounded-b-xl bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] relative overflow-hidden"
+          style={{
+            transform: `translateY(${parallaxOffset}px)`,
+            transition: 'transform 0.1s ease-out',
+          }}
+        >
           <Link href="/" className="flex items-center gap-3">
             <Image src="/favicon.ico" alt="Logo" width={40} height={40} className="h-8 w-8 sm:h-10 sm:w-10" />
             <span className="manrope text-lg sm:text-xl md:text-2xl font-semibold text-white cursor-pointer">

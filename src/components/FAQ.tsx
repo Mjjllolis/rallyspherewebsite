@@ -1,15 +1,45 @@
 "use client"
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
 import { BiMinus, BiPlus } from "react-icons/bi";
+import { motion } from "framer-motion";
 
 import SectionTitle from "./SectionTitle";
 import { faqs } from "@/data/faq";
 
 const FAQ: React.FC = () => {
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.15,
+                delayChildren: 0.1,
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, x: -20 },
+        visible: {
+            opacity: 1,
+            x: 0,
+            transition: {
+                duration: 0.6,
+                ease: "easeOut"
+            }
+        }
+    };
+
     return (
         <section id="faq" className="py-10 lg:py-20">
             <div className="flex flex-col lg:flex-row gap-10">
-                <div className="">
+                <motion.div
+                    className=""
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.8 }}
+                >
                     <p className="hidden lg:block text-foreground-accent">FAQ&apos;S</p>
                     <SectionTitle>
                         <h2 className="my-3 !leading-snug lg:max-w-sm text-center lg:text-left">Frequently Asked Questions</h2>
@@ -18,27 +48,39 @@ const FAQ: React.FC = () => {
                         Ask us anything!
                     </p>
                     <a href="mailto:" className="mt-3 block text-xl lg:text-4xl text-secondary font-semibold hover:underline text-center lg:text-left">help@RallySphere.com</a>
-                </div>
+                </motion.div>
 
-                <div className="w-full lg:max-w-2xl mx-auto border-b">
+                <motion.div
+                    className="w-full lg:max-w-2xl mx-auto border-b"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                >
                     {faqs.map((faq, index) => (
-                        <div key={index} className="mb-7">
+                        <motion.div
+                            key={index}
+                            className="mb-7"
+                            variants={itemVariants}
+                        >
                             <Disclosure>
                                 {({ open }) => (
                                     <>
-                                        <DisclosureButton className="flex items-center justify-between w-full px-4 pt-7 text-lg text-left border-t">
-                                            <span className="text-2xl font-semibold">{faq.question}</span>
-                                            {open ? <BiMinus className="w-5 h-5 text-secondary" /> : <BiPlus className="w-5 h-5 text-secondary" />}
+                                        <DisclosureButton className="flex items-center justify-between w-full px-4 pt-7 text-lg text-left border-t hover:bg-blue-50/30 transition-colors rounded-t-lg group">
+                                            <span className="text-2xl font-semibold group-hover:text-blue-600 transition-colors">{faq.question}</span>
+                                            <span className="p-2 rounded-full bg-blue-100 group-hover:bg-blue-200 transition-colors">
+                                                {open ? <BiMinus className="w-5 h-5 text-secondary" /> : <BiPlus className="w-5 h-5 text-secondary" />}
+                                            </span>
                                         </DisclosureButton>
-                                        <DisclosurePanel className="px-4 pt-4 pb-2 text-foreground-accent">
+                                        <DisclosurePanel className="px-4 pt-4 pb-2 text-foreground-accent bg-blue-50/10 rounded-b-lg">
                                             {faq.answer}
                                         </DisclosurePanel>
                                     </>
                                 )}
                             </Disclosure>
-                        </div>
+                        </motion.div>
                     ))}
-                </div>
+                </motion.div>
             </div>
         </section>
     );
