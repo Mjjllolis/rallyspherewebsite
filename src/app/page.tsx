@@ -29,18 +29,8 @@ const HomePage: React.FC = () => {
               features: [
                 "RSVP to events & join waitlists",
                 "Access to RallyStore & digital perks",
-                "Basic partner matching (RallyMatch)",
-                "Track completed goals & challenges"
-              ]
-            },
-            {
-              title: "Player Pro",
-              price: "$4.99–$7.99/mo",
-              features: [
-                "Advanced RallyMatch partner intelligence",
-                "Performance tracking & RallyRecaps",
-                "Priority access to events & features",
-                "Gamified achievements & rewards"
+                "Track completed goals & challenges",
+                "Earn Rally Credits from participation"
               ]
             },
             {
@@ -51,8 +41,10 @@ const HomePage: React.FC = () => {
                 "Host unlimited events & RSVPs",
                 "Sell coaching, passes, and merch",
                 "Basic dashboards & storefront setup",
-                "Lightweight analytics & player logs",
-                "Tournament & League Management"
+                "Announcement board",
+                "Gamification with badges/rewards",
+                "Push notifications",
+                "Lightweight analytics & player logs"
               ],
               note: "No monthly subscriptions or upfront costs— just a small transaction fee per booking or purchase."
             }

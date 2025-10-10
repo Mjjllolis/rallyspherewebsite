@@ -189,14 +189,13 @@ const CTA = () => {
                                 {/* <label className="block text-sm font-medium mb-1">Most Anticipated Feature *</label> */}
                                 <select name="anticipatedFeature" value={formData.anticipatedFeature} onChange={handleChange} className={baseInputStyles}>
                                     <option value="">Select Most Anticipated Feature</option>
-                                    <option value="Match Tracking">Match Tracking</option>
-                                    <option value="Challenges & Rewards">Challenges & Rewards</option>
-                                    <option value="AI Match Feedback">AI Match Feedback</option>
+                                    <option value="Announcement Board">Announcement Board</option>
+                                    <option value="Gamification with Badges/Rewards">Gamification with Badges/Rewards</option>
+                                    <option value="Push Notifications">Push Notifications</option>
                                     <option value="Club Dashboard">Club Dashboard</option>
                                     <option value="Branded Storefronts">Branded Storefronts</option>
                                     <option value="Analytics & Growth">Analytics & Growth</option>
                                     <option value="Sponsor Exposure">Sponsor Exposure</option>
-                                    <option value="Tournament & League Management">Tournament & League Management</option>
 
                                 </select>
                             </div>

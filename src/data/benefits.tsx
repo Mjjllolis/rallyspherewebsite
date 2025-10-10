@@ -1,4 +1,4 @@
-import { FiBarChart2, FiBriefcase, FiFlag, FiDollarSign, FiLock, FiPieChart, FiShield, FiTarget, FiTrendingUp, FiUser } from "react-icons/fi";
+import { FiBarChart2, FiBriefcase, FiDollarSign, FiLock, FiPieChart, FiShield, FiTarget, FiTrendingUp, FiUser } from "react-icons/fi";
 
 import { IBenefit } from "@/types"
 
@@ -22,11 +22,6 @@ export const benefits: IBenefit[] = [
         title: "Membership & Coaching Tools",
         description: "Enable optional club memberships, coaching features, and branded perks.",
         icon: <FiBriefcase size={26} />
-      },
-      {
-        title: "Tournament & League Management",
-        description: "Run brackets, track standings, and manage full-season leagues—right from your dashboard.",
-        icon: <FiFlag size={26} />
       }
     ],
     imageSrc: "/images/Mockup Images/Club Store.png"
