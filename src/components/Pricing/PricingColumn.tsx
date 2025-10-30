@@ -69,14 +69,17 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
                 )}
 
                 {/* CTA Button */}
-                <button className={clsx(
-                    "mt-8 w-full py-4 px-6 rounded-full font-bold text-white transition-all duration-300 hover:scale-105 shadow-lg",
-                    isFree ? "bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-500 hover:to-cyan-600" :
-                    isClubs ? "bg-gradient-to-r from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-600" :
-                    "bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-500 hover:to-cyan-600"
-                )}>
+                <a
+                    href="#cta"
+                    className={clsx(
+                        "mt-8 w-full py-4 px-6 rounded-full font-bold text-white transition-all duration-300 hover:scale-105 shadow-lg flex items-center justify-center",
+                        isFree ? "bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-500 hover:to-cyan-600" :
+                        isClubs ? "bg-gradient-to-r from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-600" :
+                        "bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-500 hover:to-cyan-600"
+                    )}
+                >
                     Get Started
-                </button>
+                </a>
             </div>
         </div>
     );
