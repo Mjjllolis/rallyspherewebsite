@@ -3,6 +3,7 @@ import { IMenuItem, ISocials } from "@/types";
 export const footerDetails: {
     subheading: string;
     quickLinks: IMenuItem[];
+    legalLinks: IMenuItem[];
     email: string;
     telephone: string;
     socials: ISocials;
@@ -21,6 +22,20 @@ export const footerDetails: {
         //     text: "Testimonials",
         //     url: "#testimonials"
         // }
+    ],
+    legalLinks: [
+        {
+            text: "Terms & Conditions",
+            url: "/terms"
+        },
+        {
+            text: "Privacy Policy",
+            url: "/privacy"
+        },
+        {
+            text: "Cookie Policy",
+            url: "/cookies"
+        }
     ],
     //email: 'jared.serpas@rallysphere.com',
     //telephone: '+1 (123) 456-7890',

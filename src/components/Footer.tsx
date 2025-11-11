@@ -7,7 +7,7 @@ import { getPlatformIconByName } from '@/utils';
 
 const Footer: React.FC = () => {
     return (
-        <footer className="bg-[#001B33] text-white w-[90%] mx-auto rounded-t-2xl pt-12 pb-8">
+        <footer className="bg-[#0B1120] dark:bg-[#0B1120] text-white w-[90%] mx-auto rounded-t-2xl pt-12 pb-8">
             <div className="w-full px-6 sm:px-8 md:px-10">
                 <div className="flex flex-col items-center text-center mb-12 gap-8">
                     <div className="flex flex-col items-center space-y-4">
@@ -49,15 +49,21 @@ const Footer: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Empowering text */}
-                <p className="text-center text-sm text-white mb-2">
-                </p>
+                {/* Legal Links */}
+                <div className="border-t border-white/20 pt-6 mt-8">
+                    <ul className="flex flex-wrap gap-4 sm:gap-6 text-white justify-center mb-4">
+                        {footerDetails.legalLinks?.map(link => (
+                            <li key={link.text}>
+                                <Link href={link.url} className="hover:text-foreground text-sm sm:text-base">{link.text}</Link>
+                            </li>
+                        ))}
+                    </ul>
 
-
-                {/* Copyright */}
-                <p className="text-center text-sm text-white py-4">
-                    &copy; {new Date().getFullYear()} {siteDetails.siteName}. All rights reserved.
-                </p>
+                    {/* Copyright */}
+                    <p className="text-center text-sm text-white">
+                        &copy; {new Date().getFullYear()} {siteDetails.siteName}. All rights reserved.
+                    </p>
+                </div>
             </div>
         </footer>
     );

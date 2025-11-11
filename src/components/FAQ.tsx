@@ -29,13 +29,13 @@ const FAQ: React.FC = () => {
                             <Disclosure>
                                 {({ open }) => (
                                     <>
-                                        <DisclosureButton className="flex items-center justify-between w-full px-4 pt-7 text-lg text-left border-t hover:bg-blue-50/30 transition-colors rounded-t-lg group">
-                                            <span className="text-2xl font-semibold group-hover:text-blue-600 transition-colors">{faq.question}</span>
-                                            <span className="p-2 rounded-full bg-blue-100 group-hover:bg-blue-200 transition-colors">
+                                        <DisclosureButton className="flex items-center justify-between w-full px-4 pt-7 text-lg text-left border-t dark:border-gray-700 hover:bg-blue-50/30 dark:hover:bg-blue-900/20 transition-colors rounded-t-lg group">
+                                            <span className="text-2xl font-semibold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{faq.question}</span>
+                                            <span className="p-2 rounded-full bg-blue-100 dark:bg-blue-900/50 group-hover:bg-blue-200 dark:group-hover:bg-blue-800/70 transition-colors">
                                                 {open ? <BiMinus className="w-5 h-5 text-secondary" /> : <BiPlus className="w-5 h-5 text-secondary" />}
                                             </span>
                                         </DisclosureButton>
-                                        <DisclosurePanel className="px-4 pt-4 pb-2 text-foreground-accent bg-blue-50/10 rounded-b-lg">
+                                        <DisclosurePanel className="px-4 pt-4 pb-2 text-foreground-accent bg-blue-50/10 dark:bg-blue-950/20 rounded-b-lg">
                                             {faq.answer}
                                         </DisclosurePanel>
                                     </>

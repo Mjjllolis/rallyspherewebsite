@@ -48,18 +48,16 @@ const Hero: React.FC = () => {
             <PlayStoreButton dark />
           </div>
           <div className="relative mt-8 sm:mt-12 md:mt-16 mx-auto z-10">
-            <div className="absolute inset-0 w-full h-full bg-[radial-gradient(circle,rgba(0,102,255,0.4)_0%,rgba(0,212,255,0.2)_50%,rgba(0,102,255,0)_80%)] rounded-full blur-3xl scale-[1.8] z-0 animate-pulse" style={{ animationDuration: '4s' }} />
-            <div className="absolute inset-0 w-full h-full bg-[radial-gradient(circle,rgba(0,212,255,0.3)_0%,rgba(0,102,255,0)_70%)] rounded-full blur-2xl scale-[1.5] z-0 animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }} />
             <Image
-              src="/images/Logo.png"
-              width={384}
-              height={340}
+              src="/images/LogoWithText.png"
+              width={500}
+              height={500}
               quality={100}
-              sizes="(max-width: 768px) 240px, (max-width: 1024px) 300px, 384px"
+              sizes="(max-width: 768px) 240px, (max-width: 1024px) 300px, 500px"
               priority={true}
               unoptimized={true}
-              alt="App Mockup"
-              className="relative z-10 w-60 sm:w-72 md:w-80 lg:w-96 mb-8 sm:mb-10 drop-shadow-2xl"
+              alt="RallySphere Logo"
+              className="relative z-10 w-60 sm:w-72 md:w-80 lg:w-[30rem] mb-8 sm:mb-10 drop-shadow-2xl"
             />
           </div>
         </div>

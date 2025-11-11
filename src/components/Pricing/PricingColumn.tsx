@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { motion } from "framer-motion";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { Tier } from "./Pricing";
+import Image from "next/image";
 
 interface Props {
     tier: Tier;
@@ -24,15 +25,23 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
         <div className="relative w-full h-full flex flex-col items-center pt-20">
             {/* Circular badge at top */}
             <div className={clsx(
-                "absolute -top-6 z-20 w-32 h-32 rounded-full bg-gradient-to-br shadow-2xl border-4 border-white",
+                "absolute -top-6 z-20 w-32 h-32 rounded-full bg-gradient-to-br shadow-2xl border-4 border-white flex items-center justify-center",
                 badgeColor
             )}>
                 {/* Inner circle for depth effect */}
                 <div className="absolute inset-4 rounded-full bg-gradient-to-tl from-white/30 to-transparent"></div>
+                {/* Logo */}
+                <Image
+                    src="/images/LogoWithTextCopy.png"
+                    alt="RallySphere Logo"
+                    width={80}
+                    height={80}
+                    className="relative z-10 w-20 h-20 object-contain"
+                />
             </div>
 
             {/* Dark card */}
-            <div className="w-full bg-[#001B33] rounded-3xl shadow-2xl overflow-hidden flex flex-col h-full pt-16 pb-8 px-8">
+            <div className="w-full bg-[#0B1120] dark:bg-[#0B1120] rounded-3xl shadow-2xl overflow-hidden flex flex-col h-full pt-16 pb-8 px-8">
                 {/* Title section */}
                 <div className="text-center mb-6">
                     <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>

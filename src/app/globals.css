@@ -15,18 +15,23 @@
 
 /* Dark mode variables (class-based) */
 .dark {
-	--background: #121212;
+	--background: #0A0F1C;
 	--foreground: #ffffff;
 	--primary: #fed835;
 	--secondary: #3b82f6;
 	--primary-accent: #facc15;
 	--foreground-accent: #e5e5e5;
-	--hero-background: #1e1e1e;
+	--hero-background: #0B1120;
 }
 
-/* Custom gradient for hero section */
+/* Custom gradient for hero section - darker to make logo pop */
 .hero-gradient {
-	background: linear-gradient(135deg, #1A202C 0%, #2D3748 50%, #2B6CB0 100%);
+	background: linear-gradient(135deg, #0B1120 0%, #152238 40%, #1A2F50 100%);
+}
+
+/* Hero gradient for dark mode - even darker */
+.dark .hero-gradient {
+	background: linear-gradient(135deg, #050A15 0%, #0B1120 50%, #152238 100%);
 }
 
 /* Ensure scroll behavior works in Safari */

@@ -8,10 +8,10 @@ interface GradientSectionProps {
 
 export default function GradientSection({ children, className = '', variant = 'default' }: GradientSectionProps) {
   const gradients = {
-    default: 'bg-gradient-to-b from-white via-blue-50/30 to-white',
-    blue: 'bg-gradient-to-br from-blue-50/40 via-white to-cyan-50/30',
-    cyan: 'bg-gradient-to-bl from-cyan-50/30 via-white to-blue-50/40',
-    purple: 'bg-gradient-to-r from-purple-50/20 via-blue-50/30 to-cyan-50/20',
+    default: 'bg-gradient-to-b from-white via-blue-50/30 to-white dark:from-[#0A0F1C] dark:via-[#0B1120]/50 dark:to-[#0A0F1C]',
+    blue: 'bg-gradient-to-br from-blue-50/40 via-white to-cyan-50/30 dark:from-blue-950/20 dark:via-[#0A0F1C] dark:to-cyan-950/20',
+    cyan: 'bg-gradient-to-bl from-cyan-50/30 via-white to-blue-50/40 dark:from-cyan-950/20 dark:via-[#0A0F1C] dark:to-blue-950/20',
+    purple: 'bg-gradient-to-r from-purple-50/20 via-blue-50/30 to-cyan-50/20 dark:from-purple-950/10 dark:via-blue-950/20 dark:to-cyan-950/10',
   };
 
   return (
