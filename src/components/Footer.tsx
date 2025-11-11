@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
                         <ul className="flex flex-wrap gap-6 sm:gap-8 text-white justify-center">
                             {footerDetails.quickLinks.map(link => (
                                 <li key={link.text}>
-                                    <Link href={link.url} className="hover:text-foreground text-base sm:text-lg py-2">{link.text}</Link>
+                                    <Link href={link.url} className="text-white/80 hover:text-white transition-colors text-base sm:text-lg py-2">{link.text}</Link>
                                 </li>
                             ))}
                         </ul>
@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
                             <Link
                                 href={footerDetails.socials.instagram}
                                 aria-label="Instagram"
-                                className="hover:text-white p-2"
+                                className="text-white/80 hover:text-white transition-colors p-2"
                             >
                                 {getPlatformIconByName("instagram")}
                             </Link>
@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
                     <ul className="flex flex-wrap gap-4 sm:gap-6 text-white justify-center mb-4">
                         {footerDetails.legalLinks?.map(link => (
                             <li key={link.text}>
-                                <Link href={link.url} className="hover:text-foreground text-sm sm:text-base">{link.text}</Link>
+                                <Link href={link.url} className="text-white/80 hover:text-white transition-colors text-sm sm:text-base">{link.text}</Link>
                             </li>
                         ))}
                     </ul>
