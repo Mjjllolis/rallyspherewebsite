@@ -4,6 +4,7 @@ import { Source_Sans_3, Manrope } from "next/font/google";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SmoothScroll from "@/components/SmoothScroll";
 import { siteDetails } from '@/data/siteDetails';
 
 import { Analytics } from "@vercel/analytics/next"
@@ -49,13 +50,15 @@ export default function RootLayout({
         className={`${manrope.className} ${sourceSans.className} antialiased`}
       >
         {siteDetails.googleAnalyticsId && <GoogleAnalytics gaId={siteDetails.googleAnalyticsId} />}
-        <div className="relative">
-          <main className="relative z-0">
-            {children}
-            <Analytics />
-          </main>
-        </div>
-        <Footer />
+        <SmoothScroll>
+          <div className="relative">
+            <main className="relative z-0">
+              {children}
+              <Analytics />
+            </main>
+          </div>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );

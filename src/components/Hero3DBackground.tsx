@@ -1,165 +1,174 @@
 'use client';
 
-import { useRef, useMemo, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, useGLTF, useVideoTexture } from '@react-three/drei';
+import { useRef, useState, useEffect, useMemo } from 'react';
 import * as THREE from 'three';
 
-interface AnimatedSphereProps {
-  position: [number, number, number];
-  color: string;
-  scale: number;
-  mousePosition: { x: number; y: number };
-}
-
-function AnimatedSphere({ position, color, scale, mousePosition }: AnimatedSphereProps) {
-  const meshRef = useRef<THREE.Mesh>(null);
-
-  useFrame(({ clock }) => {
-    if (meshRef.current) {
-      // Slow rotation
-      meshRef.current.rotation.x += 0.001;
-      meshRef.current.rotation.y += 0.0015;
-
-      // Slow floating animation
-      const floatY = position[1] + Math.sin(clock.getElapsedTime() * 0.3 + position[0]) * 0.4;
-      meshRef.current.position.y = floatY;
-
-      // Mouse interaction - subtle following
-      const targetX = position[0] + mousePosition.x * 0.3;
-      const targetZ = position[2] + mousePosition.y * 0.2;
-
-      meshRef.current.position.x += (targetX - meshRef.current.position.x) * 0.015;
-      meshRef.current.position.z += (targetZ - meshRef.current.position.z) * 0.015;
-    }
+function ScreenVideo() {
+  const videoTexture = useVideoTexture('/Iphone-Display-SR.mp4', {
+    loop: true,
+    muted: true,
+    start: true,
   });
 
+  // Fixed screen positioning values
+  const screenPosition = [0, 0, 0.125] as [number, number, number];
+  const screenRotation = [0, 0, 0] as [number, number, number];
+  const screenScale = [1, 1, 1] as [number, number, number];
+
+  // Shader material with rounded corners
+  const shaderMaterial = useMemo(() => {
+    return new THREE.ShaderMaterial({
+      uniforms: {
+        map: { value: videoTexture },
+        radius: { value: 0.3 }, // corner radius (0.0 to 0.5)
+        resolution: { value: new THREE.Vector2(1.82, 3.95) }
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform sampler2D map;
+        uniform float radius;
+        uniform vec2 resolution;
+        varying vec2 vUv;
+
+        float roundedBoxSDF(vec2 center, vec2 size, float radius) {
+          return length(max(abs(center) - size + radius, 0.0)) - radius;
+        }
+
+        void main() {
+          vec2 center = (vUv - 0.5) * resolution;
+          vec2 halfSize = resolution * 0.5;
+          float distance = roundedBoxSDF(center, halfSize, radius);
+
+          float smoothness = 0.01;
+          float alpha = 1.0 - smoothstep(-smoothness, smoothness, distance);
+
+          vec4 texColor = texture2D(map, vUv);
+          gl_FragColor = vec4(texColor.rgb, texColor.a * alpha);
+        }
+      `,
+      transparent: true,
+      side: THREE.DoubleSide,
+      toneMapped: false
+    });
+  }, []);
+
+  // Update texture uniform when video texture changes
+  useMemo(() => {
+    if (shaderMaterial && videoTexture) {
+      shaderMaterial.uniforms.map.value = videoTexture;
+    }
+  }, [videoTexture, shaderMaterial]);
+
   return (
-    <mesh ref={meshRef} position={position} scale={scale}>
-      <sphereGeometry args={[0.5, 32, 32]} />
-      <meshStandardMaterial
-        color={color}
-        transparent
-        opacity={0.15}
-        roughness={0.4}
-        metalness={0.6}
-      />
+    <mesh
+      position={screenPosition}
+      rotation={screenRotation}
+      scale={screenScale}
+      material={shaderMaterial}
+    >
+      <planeGeometry args={[1.82, 3.95]} />
     </mesh>
   );
 }
 
-function FloatingParticles({ mousePosition }: { mousePosition: { x: number; y: number } }) {
-  const particlesRef = useRef<THREE.Points>(null);
+function Model() {
+  const { scene } = useGLTF('/Iphone17.glb');
+  const groupRef = useRef<THREE.Group>(null);
+  const [scrollY, setScrollY] = useState(0);
 
-  const particlesCount = 500;
-  const { positions, colors } = useMemo(() => {
-    const pos = new Float32Array(particlesCount * 3);
-    const cols = new Float32Array(particlesCount * 3);
-    for (let i = 0; i < particlesCount; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 25;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 25;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 12;
-
-      // Color gradient from blue to cyan to white
-      const colorChoice = Math.random();
-      if (colorChoice < 0.4) {
-        // Blue
-        cols[i * 3] = 0;
-        cols[i * 3 + 1] = 0.4 + Math.random() * 0.4;
-        cols[i * 3 + 2] = 1;
-      } else if (colorChoice < 0.7) {
-        // Cyan
-        cols[i * 3] = 0;
-        cols[i * 3 + 1] = 0.8 + Math.random() * 0.2;
-        cols[i * 3 + 2] = 1;
-      } else {
-        // White
-        cols[i * 3] = 1;
-        cols[i * 3 + 1] = 1;
-        cols[i * 3 + 2] = 1;
-      }
+  useEffect(() => {
+    // Set initial rotation on mount
+    if (groupRef.current) {
+      groupRef.current.rotation.x = -0.5;
+      groupRef.current.scale.set(2, 2, 2);
     }
-    return { positions: pos, colors: cols };
+
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useFrame(({ clock }) => {
-    if (particlesRef.current) {
-      // Much slower rotation
-      particlesRef.current.rotation.y = clock.getElapsedTime() * 0.008;
+  // Fixed model position
+  const position = [0, 0, 0] as [number, number, number];
 
-      // Subtle mouse interaction
-      particlesRef.current.rotation.x = mousePosition.y * 0.03;
+  useFrame(() => {
+    if (groupRef.current) {
+      // Calculate scroll progress (0 to 1)
+      const maxScroll = 500; // Adjust this value to control how much scroll affects the animation
+      const scrollProgress = Math.min(scrollY / maxScroll, 1);
+
+      // Target values based on scroll
+      const targetRotationX = -0.5 + (scrollProgress * 0.5); // From -0.5 to 0 (straight)
+      const targetScale = 2 - (scrollProgress * 1); // From 2 to 1 (scale down)
+      const targetY = 0 - (scrollProgress * 0.5); // Move down slightly
+
+      // damping - lower value = more damping
+      const dampingFactor = 0.3;
+
+      // damped animations
+      groupRef.current.rotation.x += (targetRotationX - groupRef.current.rotation.x) * dampingFactor;
+      groupRef.current.scale.x += (targetScale - groupRef.current.scale.x) * dampingFactor;
+      groupRef.current.scale.y += (targetScale - groupRef.current.scale.y) * dampingFactor;
+      groupRef.current.scale.z += (targetScale - groupRef.current.scale.z) * dampingFactor;
+      groupRef.current.position.y += (targetY - groupRef.current.position.y) * dampingFactor;
     }
   });
 
   return (
-    <points ref={particlesRef}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={particlesCount}
-          array={positions}
-          itemSize={3}
-        />
-        <bufferAttribute
-          attach="attributes-color"
-          count={particlesCount}
-          array={colors}
-          itemSize={3}
-        />
-      </bufferGeometry>
-      <pointsMaterial size={0.04} vertexColors transparent opacity={0.6} />
-    </points>
+    <group ref={groupRef}>
+      <primitive
+        object={scene}
+        position={position}
+      />
+      <ScreenVideo />
+    </group>
   );
 }
 
-function Scene({ mousePosition }: { mousePosition: { x: number; y: number } }) {
-  const spheres: Omit<AnimatedSphereProps, 'mousePosition'>[] = [
-    { position: [-4, 2, -3], color: '#0066ff', scale: 1.4 },
-    { position: [4, -2, -4], color: '#00d4ff', scale: 1.2 },
-    { position: [-3, -3, -2], color: '#0088ff', scale: 1 },
-    { position: [5, 3, -5], color: '#0066ff', scale: 1.6 },
-    { position: [0, -4, -3], color: '#00aaff', scale: 1.3 },
-    { position: [-5, 0, -4], color: '#0099ff', scale: 1.1 },
-    { position: [2, 4, -2], color: '#00d4ff', scale: 1.5 },
-    { position: [-1, 1, -3], color: '#0077ff', scale: 0.9 },
-  ];
-
+function Scene() {
   return (
     <>
+      {/* Product lighting setup */}
       <ambientLight intensity={0.4} />
-      <directionalLight position={[5, 5, 5]} intensity={0.6} />
-      <pointLight position={[-5, -5, 5]} intensity={0.4} color="#0066ff" />
+      {/* Key light - main light from top-right */}
+      <directionalLight position={[5, 5, 5]} intensity={1.2} castShadow />
+      {/* Fill light - soften shadows from left */}
+      <directionalLight position={[-3, 2, 3]} intensity={0.4} />
+      {/* Rim light - highlight edges from behind */}
+      <directionalLight position={[0, 2, -5]} intensity={0.6} />
+      {/* Subtle colored accent lights */}
+      <pointLight position={[3, 0, 2]} intensity={0.3} color="#4a9eff" />
+      <pointLight position={[-3, 0, 2]} intensity={0.2} color="#ffffff" />
 
-      {spheres.map((sphere, index) => (
-        <AnimatedSphere key={index} {...sphere} mousePosition={mousePosition} />
-      ))}
-
-      <FloatingParticles mousePosition={mousePosition} />
+      <Model />
+      <OrbitControls enableZoom={false} enablePan={false} />
     </>
   );
 }
 
+// Preload the model
+useGLTF.preload('/Iphone17.glb');
+
 export default function Hero3DBackground() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-    setMousePosition({ x, y });
-  };
-
   return (
-    <div
-      className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none"
-      onMouseMove={handleMouseMove}
-    >
+    <div id="iphone-canvas" className="w-full h-screen">
       <Canvas
-        camera={{ position: [0, 0, 8], fov: 60 }}
+        camera={{ position: [0, 0, 5], fov: 60 }}
         className="w-full h-full"
         gl={{ alpha: true, antialias: true }}
       >
-        <Scene mousePosition={mousePosition} />
+        <Scene />
       </Canvas>
     </div>
   );
