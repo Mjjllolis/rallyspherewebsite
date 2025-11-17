@@ -32,7 +32,7 @@ const Hero: React.FC = () => {
         className="relative flex items-center justify-center w-full min-h-screen px-6 sm:px-8 md:px-10 pt-44 sm:pt-48 md:pt-52 pb-0 hero-gradient overflow-hidden"
       >
         {/* Background texture */}
-        <BackgroundTexture />
+        {/* <BackgroundTexture /> */}
         {/* 3D animated shapes */}
         <Hero3DBackground />
 
