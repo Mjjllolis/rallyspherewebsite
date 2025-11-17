@@ -6,7 +6,7 @@ import { ctaDetails } from '@/data/cta';
 import AppStoreButton from './AppStoreButton';
 import PlayStoreButton from './PlayStoreButton';
 
-const WEBHOOK_URL = 'https://prod-69.westus.logic.azure.com:443/workflows/e6558ca33ec14493ae800efb2d84d5e3/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=9IHmuYEn4q98L528_bKeSAq_Fv-g2SyFB-05kaRcTiQ';
+const WEBHOOK_URL = 'https://default03dafd775b1443d3bef241fc637da5.60.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e6558ca33ec14493ae800efb2d84d5e3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=pEpLm3FfEFymP_xNE5UWPm_ugcCiFz4QF7_u1-bZ1hY';
 
 const baseInputStyles =
     'w-full rounded-xl bg-white/10 border border-white/20 text-white px-4 py-4 sm:py-3 focus:outline-none focus:ring-2 focus:ring-[#007CFF] placeholder-white/70 transition appearance-none text-base min-h-[48px]';
