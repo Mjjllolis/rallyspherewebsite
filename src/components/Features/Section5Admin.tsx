@@ -36,7 +36,7 @@ const Section5Admin: React.FC = () => {
           <div className="grid lg:grid-cols-[1fr_minmax(0,500px)] gap-10 lg:gap-16 items-center">
             {/* Dual phones */}
             <div className="flex justify-center gap-4 sm:gap-6">
-              <div className="w-1/2 max-w-[240px]">
+              <div className="w-1/2 max-w-[280px]">
                 <ParallaxPhone
                   src="/images/Mockup Images/Admin Dashboard.png"
                   alt="Admin Dashboard"
@@ -44,7 +44,7 @@ const Section5Admin: React.FC = () => {
                   parallaxRange={[60, -60]}
                 />
               </div>
-              <div className="w-1/2 max-w-[240px] mt-12">
+              <div className="w-1/2 max-w-[280px] mt-12">
                 <ParallaxPhone
                   src="/images/Mockup Images/Analytics.png"
                   alt="Analytics Dashboard"

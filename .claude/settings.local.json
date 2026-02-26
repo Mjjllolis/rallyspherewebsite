@@ -13,7 +13,11 @@
       "Bash(npx next build 2>&1 | tail -20)",
       "Bash(cd /Users/mishawnlolis/Documents/DevRepo/rallyspherewebsite/src/app && cp favicon.ico favicon-original.png && sips -s format png -z 64 64 favicon-original.png --out icon.png 2>&1 && sips -s format ico -z 48 48 favicon-original.png --out favicon.ico 2>&1)",
       "Bash(npx next build 2>&1 | tail -25)",
-      "Bash(cd /Users/mishawnlolis/Documents/DevRepo/rallyspherewebsite && npx next build 2>&1 | tail -25)"
+      "Bash(cd /Users/mishawnlolis/Documents/DevRepo/rallyspherewebsite && npx next build 2>&1 | tail -25)",
+      "Bash(ls -la /Users/mishawnlolis/Documents/DevRepo/rallyspherewebsite/src/components/*.tsx | grep -i \"3d\\\\|phone\\\\|mock\")",
+      "Bash(npx next build 2>&1 | tail -30)",
+      "Bash(npx next build 2>&1 | tail -15)",
+      "Bash(npx next build 2>&1 | tail -5)"
     ],
     "deny": [],
     "ask": []

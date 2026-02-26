@@ -10,7 +10,7 @@ const Section1Discover: React.FC = () => {
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px]" />
 
       <div className="relative z-10 w-full px-6 lg:px-12 xl:px-20">
-        <div className="grid lg:grid-cols-[1fr_minmax(0,380px)] gap-10 lg:gap-16 items-center max-w-[1600px] mx-auto">
+        <div className="grid lg:grid-cols-[1fr_minmax(0,440px)] gap-10 lg:gap-16 items-center max-w-[1600px] mx-auto">
           {/* Content */}
           <motion.div
             className="space-y-8"

@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import type { ICarouselSlide } from "@/types";
 
 interface Props {
@@ -22,6 +22,34 @@ const slideVariants = {
 
 const FeatureCarousel: React.FC<Props> = ({ slides }) => {
   const [[activeIndex, direction], setActiveIndex] = useState([0, 0]);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const rotateXSpring = useSpring(mouseY, { stiffness: 150, damping: 20 });
+  const rotateYSpring = useSpring(mouseX, { stiffness: 150, damping: 20 });
+
+  const rotateXFinal = useTransform(rotateXSpring, (v) => 5 + v);
+  const rotateYFinal = useTransform(rotateYSpring, (v) => 20 + v);
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const x = (e.clientX - centerX) / (rect.width / 2);
+      const yPos = (e.clientY - centerY) / (rect.height / 2);
+      mouseX.set(x * 8);
+      mouseY.set(-yPos * 5);
+    },
+    [mouseX, mouseY]
+  );
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovered(false);
+    mouseX.set(0);
+    mouseY.set(0);
+  }, [mouseX, mouseY]);
 
   const goTo = (index: number) => {
     setActiveIndex([index, index > activeIndex ? 1 : -1]);
@@ -51,7 +79,13 @@ const FeatureCarousel: React.FC<Props> = ({ slides }) => {
       {/* Carousel content */}
       <div className="grid lg:grid-cols-[minmax(0,380px)_1fr] gap-8 lg:gap-12 items-center">
         {/* Phone */}
-        <div className="relative mx-auto w-full max-w-[280px] lg:max-w-none" style={{ perspective: "2000px" }}>
+        <div
+          className="relative mx-auto w-full max-w-[280px] lg:max-w-none"
+          style={{ perspective: "1200px" }}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={handleMouseLeave}
+        >
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={activeIndex}
@@ -64,18 +98,49 @@ const FeatureCarousel: React.FC<Props> = ({ slides }) => {
               className="relative"
               style={{
                 transformStyle: "preserve-3d",
-                transform: "rotateY(12deg)",
+                rotateX: rotateXFinal,
+                rotateY: rotateYFinal,
               }}
             >
-              <div className="absolute inset-0 blur-3xl opacity-25 rounded-[2rem] bg-gradient-to-br from-blue-400 to-cyan-400 -rotate-3 pointer-events-none" />
+              {/* Shadow on surface */}
+              <div
+                className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[70%] h-12 rounded-full pointer-events-none"
+                style={{
+                  background: "radial-gradient(ellipse, rgba(0,0,0,0.25) 0%, transparent 70%)",
+                  transform: "translateZ(-60px) translateX(-10%)",
+                }}
+              />
+
+              <div
+                className={`absolute inset-0 blur-3xl opacity-25 rounded-[2rem] bg-gradient-to-br from-blue-400 to-cyan-400 -rotate-3 pointer-events-none transition-opacity duration-300 ${isHovered ? "opacity-40" : ""}`}
+                style={{ transform: "translateZ(-50px)" }}
+              />
+
+              {/* Phone bezel */}
+              <div
+                className="absolute inset-[-3px] rounded-[2.2rem] bg-gradient-to-b from-gray-700 via-gray-900 to-gray-800 z-[5]"
+                style={{ transform: "translateZ(-2px)" }}
+              />
+
+              {/* Screen reflection */}
+              <div
+                className="absolute inset-0 rounded-[2rem] z-20 pointer-events-none opacity-[0.07]"
+                style={{
+                  background: "linear-gradient(135deg, white 0%, transparent 50%)",
+                }}
+              />
+
               <Image
                 src={slide.imageSrc}
                 alt={slide.label}
                 width={380}
                 height={760}
                 quality={100}
-                className="relative z-10 w-full h-auto drop-shadow-2xl select-none rounded-[2rem]"
+                className="relative z-10 w-full h-auto select-none rounded-[2rem]"
                 draggable={false}
+                style={{
+                  filter: "drop-shadow(0 25px 50px rgba(0,0,0,0.3))",
+                }}
               />
             </motion.div>
           </AnimatePresence>
