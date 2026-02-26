@@ -2,7 +2,7 @@ import { IPricing } from "@/types";
 
 export const tiers: IPricing[] = [
     {
-        name: 'Club Starter',
+        name: 'Club Starter — Coming Soon',
         price: 29,
         features: [
             'Smart RSVPs & Waitlists',
@@ -14,7 +14,7 @@ export const tiers: IPricing[] = [
         ],
     },
     {
-        name: 'Club Pro',
+        name: 'Club Pro — Coming Soon',
         price: 99,
         features: [
             'Everything in Club Starter',
@@ -29,7 +29,7 @@ export const tiers: IPricing[] = [
         ],
     },
     {
-        name: 'Club Enterprise',
+        name: 'Club Enterprise — Coming Soon',
         price: 'Custom',
         features: [
             'Everything in Club Pro',

@@ -153,16 +153,16 @@ export const section3Accordion: IAccordionItem[] = [
     ],
   },
   {
-    title: "Subscriptions",
+    title: "Subscriptions — Coming Soon",
     bullets: [
       {
         title: "Monthly Memberships",
-        description: "Configurable pricing with Stripe-powered recurring billing.",
+        description: "Configurable pricing with Stripe-powered recurring billing. Coming soon.",
         icon: <FiRepeat size={20} />,
       },
       {
         title: "Subscriber Management",
-        description: "Track status, manage tiers, and offer pro subscriptions for clubs and users.",
+        description: "Track status, manage tiers, and offer pro subscriptions for clubs and users. Coming soon.",
         icon: <FiUserCheck size={20} />,
       },
     ],
@@ -204,8 +204,8 @@ export const section5Accordion: IAccordionItem[] = [
         icon: <FiSettings size={20} />,
       },
       {
-        title: "Push Notifications",
-        description: "Send targeted announcements with deep links to events, items, and profiles.",
+        title: "Push Notifications — Coming Soon",
+        description: "Send targeted announcements with deep links to events, items, and profiles. Coming soon.",
         icon: <FiBell size={20} />,
       },
     ],
@@ -235,8 +235,8 @@ export const section5Accordion: IAccordionItem[] = [
 // ─── Section 6: And So Much More (Grid) ─────────────────────────
 export const section6Cards: IFeatureCard[] = [
   {
-    title: "Push Notifications",
-    description: "Real-time alerts with deep link support for events, items, and profiles.",
+    title: "Push Notifications — Coming Soon",
+    description: "Real-time alerts with deep link support for events, items, and profiles. Coming soon.",
     icon: <FiBell size={22} />,
   },
   {
@@ -245,8 +245,8 @@ export const section6Cards: IFeatureCard[] = [
     icon: <FiZap size={22} />,
   },
   {
-    title: "Media Support",
-    description: "Camera/gallery uploads, multi-image galleries, and video player for virtual events.",
+    title: "Media Support — Coming Soon",
+    description: "Camera/gallery uploads, multi-image galleries, and video player for virtual events. Coming soon.",
     icon: <FiVideo size={22} />,
   },
   {
@@ -289,8 +289,8 @@ export const section7Highlights: ICreatorHighlight[] = [
     icon: <FiShoppingCart size={24} />,
   },
   {
-    title: "Subscriptions",
-    description: "Monthly club memberships with Stripe-powered recurring billing and tier management.",
+    title: "Subscriptions — Coming Soon",
+    description: "Monthly club memberships with Stripe-powered recurring billing and tier management. Coming soon.",
     icon: <FiRepeat size={24} />,
   },
   {

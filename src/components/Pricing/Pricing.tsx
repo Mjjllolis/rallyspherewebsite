@@ -24,8 +24,8 @@ interface TierData {
 const tiers: TierData[] = [
   {
     title: "Player",
-    price: "Free",
-    priceNote: "forever",
+    price: "$0",
+    priceNote: "no upfront cost",
     tagline: "Everything you need to discover, join, and earn.",
     icon: <FiUser size={26} />,
     accent: "from-cyan-400 to-cyan-500",
@@ -39,7 +39,7 @@ const tiers: TierData[] = [
   },
   {
     title: "Clubs & Facilities",
-    price: "Transaction Fee",
+    price: "$0",
     priceNote: "no upfront cost",
     tagline: "Run, monetize, and grow your community.",
     icon: <FiBriefcase size={26} />,
@@ -111,13 +111,7 @@ const Pricing: React.FC = () => {
             <h3 className="text-3xl lg:text-4xl font-bold text-white mb-2">
               {tier.title}
             </h3>
-            <div className="flex items-baseline justify-center gap-2 mb-3">
-              <span className={`text-4xl lg:text-5xl font-bold bg-gradient-to-r ${tier.accent} bg-clip-text text-transparent`}>
-                {tier.price}
-              </span>
-              <span className="text-base text-gray-400">{tier.priceNote}</span>
-            </div>
-            <p className="text-lg text-gray-400 max-w-md mx-auto">
+            <p className="text-lg text-gray-400 max-w-md mx-auto mt-3">
               {tier.tagline}
             </p>
           </div>

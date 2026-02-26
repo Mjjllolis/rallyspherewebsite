@@ -20,14 +20,14 @@ const Section3Commerce: React.FC = () => {
             transition={{ duration: 0.4 }}
           >
             <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400">
-              Store &middot; Payments &middot; Subscriptions
+              Store &middot; Payments &middot; Subscriptions (Coming Soon)
             </p>
             <h3 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white">
               Built-In Commerce
             </h3>
             <p className="text-lg lg:text-xl text-white/80 leading-relaxed">
-              Sell merchandise, collect payments, and manage subscriptions
-              — all without leaving the app.
+              Sell merchandise and collect payments — all without leaving the app.
+              Subscriptions coming soon.
             </p>
           </motion.div>
 
