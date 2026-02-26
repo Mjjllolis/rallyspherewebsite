@@ -5,7 +5,15 @@
       "Bash(npm install:*)",
       "Bash(npm run dev:*)",
       "Bash(npm run serve)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(cat \"/Users/mishawnlolis/.claude/projects/-Users-mishawnlolis-Documents-DevRepo-rallyspherewebsite/d27cc6a0-5ce4-41f9-85c6-8e11698d273a/tool-results/toolu_01E2QGszH9dxBKN5x4H64tNo.json\" | python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); print\\(data[0]['text']\\)\" 2>/dev/null | head -500)",
+      "Bash(cat \"/Users/mishawnlolis/.claude/projects/-Users-mishawnlolis-Documents-DevRepo-rallyspherewebsite/d27cc6a0-5ce4-41f9-85c6-8e11698d273a/tool-results/toolu_01E2QGszH9dxBKN5x4H64tNo.json\" | python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); print\\(data[0]['text']\\)\" 2>/dev/null | tail -n +500 | head -500)",
+      "Bash(cat \"/Users/mishawnlolis/.claude/projects/-Users-mishawnlolis-Documents-DevRepo-rallyspherewebsite/d27cc6a0-5ce4-41f9-85c6-8e11698d273a/tool-results/toolu_01E2QGszH9dxBKN5x4H64tNo.json\" | python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); print\\(data[0]['text']\\)\" 2>/dev/null | tail -n +1000)",
+      "Bash(npx next build 2>&1 | tail -40)",
+      "Bash(npx next build 2>&1 | tail -20)",
+      "Bash(cd /Users/mishawnlolis/Documents/DevRepo/rallyspherewebsite/src/app && cp favicon.ico favicon-original.png && sips -s format png -z 64 64 favicon-original.png --out icon.png 2>&1 && sips -s format ico -z 48 48 favicon-original.png --out favicon.ico 2>&1)",
+      "Bash(npx next build 2>&1 | tail -25)",
+      "Bash(cd /Users/mishawnlolis/Documents/DevRepo/rallyspherewebsite && npx next build 2>&1 | tail -25)"
     ],
     "deny": [],
     "ask": []

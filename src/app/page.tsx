@@ -3,9 +3,10 @@ import Testimonials from "@/components/Testimonials";
 import Pricing from "@/components/Pricing/Pricing";
 import FAQ from "@/components/FAQ";
 import Logos from "@/components/Logos";
-import Benefits from "@/components/Benefits/Benefits";
+import Features from "@/components/Features/Features";
 import Container from "@/components/Container";
 import Section from "@/components/Section";
+import SectionTitle from "@/components/SectionTitle";
 import Stats from "@/components/Stats";
 import CTA from "@/components/CTA";
 
@@ -14,43 +15,18 @@ const HomePage: React.FC = () => {
     <>
       <Hero />
       <Logos />
-      <Benefits />
+      <Features />
 
-      <Section
-        id="pricing"
-        title="Plans & Pricing"
-        description="Compare features for players and clubs side by side."
-      >
-        <Pricing
-          tiers={[
-            {
-              title: "Player (Free)",
-              price: "$0",
-              features: [
-                "RSVP to events & join waitlists",
-                "Access to RallyStore & digital perks",
-                "Track completed goals & challenges",
-                "Earn Rally Credits from participation"
-              ]
-            },
-            {
-              title: "Clubs & Facilities",
-              price: "Small Transaction Fee",
-              subtitle: "Whether you're an organizer, group, or a facility, we've got you covered.",
-              features: [
-                "Host unlimited events & RSVPs",
-                "Sell coaching, passes, and merch",
-                "Basic dashboards & storefront setup",
-                "Announcement board",
-                "Gamification with badges/rewards",
-                "Push notifications",
-                "Lightweight analytics & player logs"
-              ],
-              note: "No monthly subscriptions or upfront costs— just a small transaction fee per booking or purchase."
-            }
-          ]}
-        />
-      </Section>
+      <section id="pricing" className="relative py-16 lg:py-24 overflow-hidden hero-gradient">
+        <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px]" />
+        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 lg:px-12 xl:px-20">
+          <div className="text-center mb-4">
+            <h2 className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Plans & Pricing</h2>
+          </div>
+          <p className="mb-12 text-center text-white/70 text-lg">Pick the plan that fits — swap to compare.</p>
+          <Pricing />
+        </div>
+      </section>
 
       {/* <Section
         id="testimonials"

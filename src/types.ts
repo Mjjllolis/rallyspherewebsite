@@ -51,3 +51,33 @@ export interface ISocials {
     x?: string;
     [key: string]: string | undefined;
 }
+
+// Features section types
+export interface IFeatureBullet {
+    title: string;
+    description: string;
+    icon: JSX.Element;
+}
+
+export interface IAccordionItem {
+    title: string;
+    bullets: IFeatureBullet[];
+}
+
+export interface IFeatureCard {
+    title: string;
+    description: string;
+    icon: JSX.Element;
+}
+
+export interface ICarouselSlide {
+    label: string;
+    imageSrc: string;
+    bullets: IFeatureBullet[];
+}
+
+export interface ICreatorHighlight {
+    title: string;
+    description: string;
+    icon: JSX.Element;
+}
