@@ -48,7 +48,7 @@ const tiers: TierData[] = [
     features: [
       { icon: <FiCalendar size={22} />, label: "Events & Ticketing", detail: "Unlimited events with paid tickets & approval flows" },
       { icon: <FiShoppingCart size={22} />, label: "Storefront & Subs", detail: "Sell merch, passes & monthly memberships. Pickup now — shipping coming soon" },
-      { icon: <FiDollarSign size={22} />, label: "Direct Payouts", detail: "Stripe Connect with 90/10 revenue split" },
+      { icon: <FiDollarSign size={22} />, label: "Direct Payouts", detail: "Secure direct payouts" },
       { icon: <FiUsers size={22} />, label: "Member Management", detail: "Approve, promote & manage your community" },
       { icon: <FiBarChart2 size={22} />, label: "Analytics", detail: "Revenue, attendance, growth & engagement data" },
       { icon: <FiRepeat size={22} />, label: "Credits & Rewards", detail: "Award credits, create redemptions & track usage" },

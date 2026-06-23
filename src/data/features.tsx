@@ -136,7 +136,7 @@ export const section3Accordion: IAccordionItem[] = [
     title: "Checkout & Payments",
     bullets: [
       {
-        title: "Secure Stripe Payments",
+        title: "Direct & Secure Payments",
         description: "Apple Pay, Google Pay, and card payments with full PCI compliance.",
         icon: <FiCreditCard size={20} />,
       },
@@ -157,7 +157,7 @@ export const section3Accordion: IAccordionItem[] = [
     bullets: [
       {
         title: "Monthly Memberships",
-        description: "Configurable pricing with Stripe-powered recurring billing. Coming soon.",
+        description: "Configurable pricing with recurring billing. Coming soon.",
         icon: <FiRepeat size={20} />,
       },
       {
@@ -214,8 +214,8 @@ export const section5Accordion: IAccordionItem[] = [
     title: "Payouts & Revenue",
     bullets: [
       {
-        title: "Stripe Connect Payouts",
-        description: "Direct payouts with a 90/10 revenue split — onboard in minutes.",
+        title: "Secure Payouts",
+        description: "Secure direct payouts — onboard in minutes.",
         icon: <FiDollarSign size={20} />,
       },
       {
@@ -290,12 +290,12 @@ export const section7Highlights: ICreatorHighlight[] = [
   },
   {
     title: "Subscriptions — Coming Soon",
-    description: "Monthly club memberships with Stripe-powered recurring billing and tier management. Coming soon.",
+    description: "Monthly club memberships with recurring billing and tier management. Coming soon.",
     icon: <FiRepeat size={24} />,
   },
   {
     title: "Direct Payouts",
-    description: "Stripe Connect with 90/10 split — clubs get paid directly with full revenue tracking.",
+    description: "Secure direct payouts — clubs get paid directly with full revenue tracking.",
     icon: <FiDollarSign size={24} />,
   },
 ];
