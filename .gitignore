@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Override global ~/.gitignore "lib" rule so app source in src/lib is tracked
+!src/lib/
+!src/lib/**
