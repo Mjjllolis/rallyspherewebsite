@@ -13,9 +13,9 @@ export default function WaveTransition() {
       >
         <defs>
           <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#001B33" stopOpacity="1" />
-            <stop offset="50%" stopColor="#002B5C" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#004B94" stopOpacity="0.6" />
+            <stop offset="0%" stopColor="var(--accent-from)" stopOpacity="1" />
+            <stop offset="50%" stopColor="var(--accent-via)" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="var(--accent-to)" stopOpacity="0.6" />
           </linearGradient>
         </defs>
 
@@ -55,9 +55,10 @@ export default function WaveTransition() {
           />
         </path>
 
-        {/* Foreground wave - fastest */}
+        {/* Foreground wave - fastest. Matches the page bg so the hero blends
+            seamlessly into the section below (navy in dark, off-white in light). */}
         <path
-          fill="#ffffff"
+          fill="var(--bg)"
           fillOpacity="1"
           d="M0,80 C360,50 720,110 1080,80 C1260,65 1350,95 1440,80 L1440,120 L0,120 Z"
         >

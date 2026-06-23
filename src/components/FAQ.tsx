@@ -1,48 +1,70 @@
-"use client"
+"use client";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
 import { BiMinus, BiPlus } from "react-icons/bi";
+import { motion } from "framer-motion";
 
-import SectionTitle from "./SectionTitle";
+import SectionHeading from "./ui/SectionHeading";
 import { faqs } from "@/data/faq";
 
 const FAQ: React.FC = () => {
     return (
-        <section id="faq" className="py-10 lg:py-20">
-            <div className="flex flex-col lg:flex-row gap-10">
-                <div className="">
-                    <p className="hidden lg:block text-foreground-accent">FAQ&apos;S</p>
-                    <SectionTitle>
-                        <h2 className="my-3 !leading-snug lg:max-w-sm text-center lg:text-left">Frequently Asked Questions</h2>
-                    </SectionTitle>
-                    <p className="lg:mt-10 text-foreground-accent text-center lg:text-left">
-                        Ask us anything!
-                    </p>
-                    <a href="mailto:" className="mt-3 block text-xl lg:text-4xl text-secondary font-semibold hover:underline text-center lg:text-left">help@RallySphere.com</a>
-                </div>
+        <section id="faq" className="relative py-28 lg:py-40 overflow-hidden bg-bg text-ink">
+            {/* Subtle grid background */}
+            <div className="absolute inset-0 -z-10 grid-overlay opacity-40" />
 
-                <div className="w-full lg:max-w-2xl mx-auto border-b">
-                    {faqs.map((faq, index) => (
-                        <div
-                            key={index}
-                            className="mb-7"
+            <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 lg:px-12 xl:px-20">
+                <div className="grid lg:grid-cols-[minmax(0,380px)_1fr] gap-10 lg:gap-16">
+                    {/* Left column */}
+                    <div className="lg:sticky lg:top-28 self-start">
+                        <SectionHeading
+                            align="left"
+                            eyebrow="FAQ"
+                            title="Frequently Asked Questions"
+                            subtitle="Everything you need to know about RallySphere. Can’t find an answer? Reach out — we’re happy to help."
+                        />
+                        <a
+                            href="mailto:help@rallysphere.com"
+                            className="mt-6 inline-block text-xl lg:text-2xl text-gradient font-semibold hover:opacity-80 transition-opacity"
                         >
-                            <Disclosure>
-                                {({ open }) => (
-                                    <>
-                                        <DisclosureButton className="flex items-center justify-between w-full px-4 pt-7 text-lg text-left border-t dark:border-gray-700 hover:bg-blue-50/30 dark:hover:bg-blue-900/20 transition-colors rounded-t-lg group">
-                                            <span className="text-2xl font-semibold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{faq.question}</span>
-                                            <span className="p-2 rounded-full bg-blue-100 dark:bg-blue-900/50 group-hover:bg-blue-200 dark:group-hover:bg-blue-800/70 transition-colors">
-                                                {open ? <BiMinus className="w-5 h-5 text-secondary" /> : <BiPlus className="w-5 h-5 text-secondary" />}
-                                            </span>
-                                        </DisclosureButton>
-                                        <DisclosurePanel className="px-4 pt-4 pb-2 text-foreground-accent bg-blue-50/10 dark:bg-blue-950/20 rounded-b-lg">
-                                            {faq.answer}
-                                        </DisclosurePanel>
-                                    </>
-                                )}
-                            </Disclosure>
-                        </div>
-                    ))}
+                            help@rallysphere.com
+                        </a>
+                    </div>
+
+                    {/* Questions */}
+                    <div className="w-full">
+                        {faqs.map((faq, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-40px" }}
+                                transition={{ delay: index * 0.06, duration: 0.35 }}
+                                className="mb-4"
+                            >
+                                <Disclosure>
+                                    {({ open }) => (
+                                        <div className="rounded-2xl border border-line bg-surface-1 overflow-hidden transition-colors hover:border-brand/40">
+                                            <DisclosureButton className="flex items-center justify-between w-full gap-4 px-5 py-5 text-left group">
+                                                <span className="text-lg sm:text-xl font-semibold text-ink group-hover:text-brand transition-colors">
+                                                    {faq.question}
+                                                </span>
+                                                <span className="flex-shrink-0 p-2 rounded-full brand-gradient text-ink-on-accent">
+                                                    {open ? (
+                                                        <BiMinus className="w-5 h-5" />
+                                                    ) : (
+                                                        <BiPlus className="w-5 h-5" />
+                                                    )}
+                                                </span>
+                                            </DisclosureButton>
+                                            <DisclosurePanel className="px-5 pb-5 -mt-1 text-base text-ink-secondary leading-relaxed">
+                                                {faq.answer}
+                                            </DisclosurePanel>
+                                        </div>
+                                    )}
+                                </Disclosure>
+                            </motion.div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

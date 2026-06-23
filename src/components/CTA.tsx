@@ -2,14 +2,23 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FiGift, FiZap, FiUsers, FiSend, FiCheckCircle, FiMail } from 'react-icons/fi';
 import { ctaDetails } from '@/data/cta';
 import AppStoreButton from './AppStoreButton';
 import PlayStoreButton from './PlayStoreButton';
+import PhotoBackdrop from './ui/PhotoBackdrop';
 
-const WEBHOOK_URL = 'https://default03dafd775b1443d3bef241fc637da5.60.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e6558ca33ec14493ae800efb2d84d5e3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=pEpLm3FfEFymP_xNE5UWPm_ugcCiFz4QF7_u1-bZ1hY';
+const CONTACT_ENDPOINT = '/api/contact';
 
-const baseInputStyles =
-    'w-full rounded-xl bg-white/10 border border-white/20 text-white px-4 py-4 sm:py-3 focus:outline-none focus:ring-2 focus:ring-[#007CFF] placeholder-white/70 transition appearance-none text-base min-h-[48px]';
+const inputStyles =
+    'w-full rounded-xl bg-white/[0.07] border border-white/15 text-white placeholder-white/50 px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-accent-via focus:border-transparent transition appearance-none text-base';
+const labelStyles = 'block text-sm font-medium text-ink-on-inverse-muted mb-2';
+
+const perks = [
+    { icon: <FiGift size={20} />, title: 'Free to join', desc: 'No upfront costs or monthly fees — ever.' },
+    { icon: <FiZap size={20} />, title: 'Early access', desc: 'Be first to try new features as they ship.' },
+    { icon: <FiUsers size={20} />, title: 'Built for everyone', desc: 'Players, clubs, and sponsors all welcome.' },
+];
 
 const CTA = () => {
     const [formData, setFormData] = useState({
@@ -43,7 +52,7 @@ const CTA = () => {
 
         setLoading(true);
         try {
-            const response = await fetch(WEBHOOK_URL, {
+            const response = await fetch(CONTACT_ENDPOINT, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
@@ -52,168 +61,197 @@ const CTA = () => {
             if (response.ok) {
                 setSubmitted(true);
             } else {
-                alert('There was an error submitting the form.');
+                // Surface the real reason (e.g. Power Automate 400 schema error)
+                const detail = await response.text().catch(() => '');
+                console.error('Contact form submit failed:', response.status, detail);
+                alert(`There was an error submitting the form (${response.status}). Please try again or email help@rallysphere.com.`);
             }
         } catch (err) {
-            console.error(err);
-            alert('Submission failed.');
+            console.error('Contact form network error:', err);
+            alert('Submission failed — please check your connection or email help@rallysphere.com.');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <section id="cta" className="relative mt-10 mb-5 lg:my-20 w-full overflow-hidden">
-            {/* Grid lines with radial mask (matches Hero) */}
-            <div className="absolute inset-0 -z-20">
-                <div className="absolute inset-0 h-full w-full bg-[linear-gradient(to_right,#ffffff1a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff1a_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]" />
-            </div>
-
-            {/* Radial overlay */}
-            <div className="absolute inset-0 -z-10 rounded-3xl bg-[radial-gradient(circle_600px_at_50%_500px,#1C1C02,transparent)]" />
-
-            {/* Animated gradient background */}
-            <motion.div
-                className="absolute inset-0 z-0 h-full w-full rounded-3xl bg-gradient-to-br from-[#001733] via-[#002B5C] to-[#004B94] opacity-95"
-                animate={{
-                    background: [
-                        'linear-gradient(135deg, #001733 0%, #002B5C 50%, #004B94 100%)',
-                        'linear-gradient(135deg, #002B5C 0%, #004B94 50%, #001733 100%)',
-                        'linear-gradient(135deg, #004B94 0%, #001733 50%, #002B5C 100%)',
-                        'linear-gradient(135deg, #001733 0%, #002B5C 50%, #004B94 100%)',
-                    ]
-                }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            />
+        <section id="cta" className="relative w-full overflow-hidden surface-navy text-ink-on-inverse py-28 lg:py-40">
+            {/* Photo background */}
+            <PhotoBackdrop src="/images/photos/cta.jpg" overlay={90} position="center" />
 
             {/* Floating gradient orbs */}
-            <div className="absolute inset-0 z-0 overflow-hidden rounded-3xl opacity-40">
-                <div className="absolute -top-20 -left-20 w-96 h-96 bg-cyan-400/30 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '10s' }} />
-                <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-blue-400/30 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '12s', animationDelay: '3s' }} />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '14s', animationDelay: '6s' }} />
+            <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+                <div className="absolute -top-24 -left-16 h-96 w-96 rounded-full bg-accent-from/20 blur-3xl animate-pulse" style={{ animationDuration: '11s' }} />
+                <div className="absolute -bottom-24 -right-16 h-96 w-96 rounded-full bg-accent-to/20 blur-3xl animate-pulse" style={{ animationDuration: '13s', animationDelay: '3s' }} />
             </div>
 
-            <div className="relative z-10 h-full w-full mx-auto py-12 sm:py-16 md:py-20 px-6 sm:px-8 md:px-10">
+            <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 lg:px-12 xl:px-20">
+                <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+                    {/* Left: pitch + perks */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-60px' }}
+                        transition={{ duration: 0.5 }}
+                        className="lg:sticky lg:top-28 space-y-8"
+                    >
+                        <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ink-on-inverse-muted">
+                            <FiMail className="text-accent-via" />
+                            Join the waitlist
+                        </span>
 
-                <div className="flex flex-col items-center text-white text-center max-w-4xl mx-auto space-y-6">
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold max-w-xs sm:max-w-lg md:max-w-2xl px-4">
-                        {ctaDetails.heading}
-                    </h2>
-                    <p className="mx-auto max-w-sm sm:max-w-xl px-4 text-base sm:text-lg leading-relaxed">{ctaDetails.subheading}</p>
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+                            <span className="text-gradient-animated">{ctaDetails.heading}</span>
+                        </h2>
+                        <p className="max-w-lg text-lg leading-relaxed text-ink-on-inverse-muted">
+                            {ctaDetails.subheading}
+                        </p>
 
-                    <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 pt-2">
-                        <AppStoreButton />
-                        <PlayStoreButton />
-                    </div>
+                        {/* Perks */}
+                        <ul className="space-y-4">
+                            {perks.map((perk, i) => (
+                                <motion.li
+                                    key={perk.title}
+                                    initial={{ opacity: 0, x: -16 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.1 + i * 0.1, duration: 0.4 }}
+                                    className="flex items-center gap-4"
+                                >
+                                    <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl brand-gradient-br text-ink-on-accent shadow-lg">
+                                        {perk.icon}
+                                    </span>
+                                    <span>
+                                        <span className="block font-semibold text-ink-on-inverse">{perk.title}</span>
+                                        <span className="block text-sm text-ink-on-inverse-muted">{perk.desc}</span>
+                                    </span>
+                                </motion.li>
+                            ))}
+                        </ul>
 
-                    {submitted ? (
-                        <div className="text-center bg-white text-black p-6 rounded-xl shadow-xl">
-                            <h3 className="text-xl  font-semibold mb-2">Thanks for reaching out!</h3>
-                            <p>We'll be in touch soon.</p>
+                        <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
+                            <AppStoreButton dark />
+                            <PlayStoreButton dark />
                         </div>
-                    ) : (
-                        <form
-                            onSubmit={handleSubmit}
-                            className="w-full bg-white/5 backdrop-blur-sm rounded-2xl p-6 sm:p-8 md:p-10 space-y-6 mt-8"
-                        >
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                                <input
-                                    name="name"
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    placeholder="Your name *"
-                                    className={baseInputStyles}
-                                />
-                                <input
-                                    name="email"
-                                    type="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    placeholder="you@example.com *"
-                                    className={baseInputStyles}
-                                />
-                                <input
-                                    name="phone"
-                                    type="tel"
-                                    value={formData.phone}
-                                    onChange={handleChange}
-                                    placeholder="Phone"
-                                    className={baseInputStyles}
-                                />
-                                <div className="flex flex-col gap-3 text-left sm:col-span-2">
-                                    <span className="text-sm font-medium mb-2">I am a...</span>
-                                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                    </motion.div>
+
+                    {/* Right: form card */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-60px' }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                        className="relative rounded-3xl border border-white/15 bg-white/[0.05] p-6 shadow-2xl backdrop-blur-xl sm:p-8 lg:p-10"
+                    >
+                        {/* glow ring */}
+                        <div className="pointer-events-none absolute -inset-px rounded-3xl brand-gradient opacity-10" />
+
+                        {submitted ? (
+                            <div className="relative flex flex-col items-center justify-center gap-4 py-16 text-center">
+                                <span className="flex h-16 w-16 items-center justify-center rounded-full brand-gradient text-ink-on-accent">
+                                    <FiCheckCircle size={32} />
+                                </span>
+                                <h3 className="text-2xl font-bold text-ink-on-inverse">Thanks for reaching out!</h3>
+                                <p className="text-ink-on-inverse-muted">We&apos;ll be in touch soon. Keep an eye on your inbox.</p>
+                            </div>
+                        ) : (
+                            <form onSubmit={handleSubmit} className="relative space-y-6">
+                                <div>
+                                    <h3 className="text-xl font-bold text-ink-on-inverse">Tell us about you</h3>
+                                    <p className="mt-1 text-sm text-ink-on-inverse-muted">Takes less than a minute.</p>
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                    <div>
+                                        <label className={labelStyles}>Name *</label>
+                                        <input name="name" value={formData.name} onChange={handleChange} placeholder="Your name" className={inputStyles} />
+                                    </div>
+                                    <div>
+                                        <label className={labelStyles}>Email *</label>
+                                        <input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="you@example.com" className={inputStyles} />
+                                    </div>
+                                    <div className="sm:col-span-2">
+                                        <label className={labelStyles}>Phone</label>
+                                        <input name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="Optional" className={inputStyles} />
+                                    </div>
+                                </div>
+
+                                {/* Segmented "I am a..." control */}
+                                <div>
+                                    <span className={labelStyles}>I am a...</span>
+                                    <div className="grid grid-cols-3 gap-2 rounded-2xl border border-white/15 bg-white/[0.04] p-1.5">
                                         {['Player', 'Club', 'Sponsor'].map(option => (
-                                            <label key={option} className="inline-flex items-center gap-3 py-2">
-                                                <input
-                                                    type="radio"
-                                                    name="category"
-                                                    value={option}
-                                                    checked={formData.category === option}
-                                                    onChange={handleChange}
-                                                    className="form-radio text-[#007CFF] focus:ring-[#007CFF] w-4 h-4"
-                                                />
-                                                <span className="text-base">{option}</span>
-                                            </label>
+                                            <button
+                                                type="button"
+                                                key={option}
+                                                onClick={() => setFormData(prev => ({ ...prev, category: option }))}
+                                                aria-pressed={category === option}
+                                                className={`relative rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors ${category === option ? 'text-white' : 'text-ink-on-inverse-muted hover:text-white'}`}
+                                            >
+                                                {category === option && (
+                                                    <motion.span layoutId="cta-segment" className="absolute inset-0 rounded-xl brand-gradient shadow-lg" transition={{ type: 'spring', stiffness: 400, damping: 30 }} />
+                                                )}
+                                                <span className="relative z-10">{option}</span>
+                                            </button>
                                         ))}
                                     </div>
                                 </div>
-                            </div>
 
-                            <AnimatePresence mode="wait">
-                                {category === 'Club' && (
-                                    <motion.div key="club" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                                        <div>
-                                            <label className="block text-sm font-medium mb-2">Club Name</label>
-                                            <input name="clubName" value={formData.clubName} onChange={handleChange} className={baseInputStyles} />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium mb-2">Club Size</label>
-                                            <input name="clubSize" value={formData.clubSize} onChange={handleChange} className={baseInputStyles} />
-                                        </div>
-                                        <div className="sm:col-span-2">
-                                            <label className="block text-sm font-medium mb-2">Club Location</label>
-                                            <input name="clubLocation" value={formData.clubLocation} onChange={handleChange} className={baseInputStyles} />
-                                        </div>
-                                    </motion.div>
-                                )}
-                                {category === 'Sponsor' && (
-                                    <motion.div key="sponsor" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                                        <label className="block text-sm font-medium mb-2">Sponsor Type</label>
-                                        <input name="sponsorType" value={formData.sponsorType} onChange={handleChange} className={baseInputStyles} />
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
+                                <AnimatePresence mode="wait">
+                                    {category === 'Club' && (
+                                        <motion.div key="club" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="grid grid-cols-1 gap-4 overflow-hidden sm:grid-cols-2">
+                                            <div>
+                                                <label className={labelStyles}>Club Name</label>
+                                                <input name="clubName" value={formData.clubName} onChange={handleChange} className={inputStyles} />
+                                            </div>
+                                            <div>
+                                                <label className={labelStyles}>Club Size</label>
+                                                <input name="clubSize" value={formData.clubSize} onChange={handleChange} className={inputStyles} />
+                                            </div>
+                                            <div className="sm:col-span-2">
+                                                <label className={labelStyles}>Club Location</label>
+                                                <input name="clubLocation" value={formData.clubLocation} onChange={handleChange} className={inputStyles} />
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                    {category === 'Sponsor' && (
+                                        <motion.div key="sponsor" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                                            <label className={labelStyles}>Sponsor Type</label>
+                                            <input name="sponsorType" value={formData.sponsorType} onChange={handleChange} className={inputStyles} />
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
 
-                            <div>
-                                {/* <label className="block text-sm font-medium mb-1">Most Anticipated Feature *</label> */}
-                                <select name="anticipatedFeature" value={formData.anticipatedFeature} onChange={handleChange} className={baseInputStyles}>
-                                    <option value="">Select Most Anticipated Feature</option>
-                                    <option value="Announcement Board">Announcement Board</option>
-                                    <option value="Gamification with Badges/Rewards">Gamification with Badges/Rewards</option>
-                                    <option value="Push Notifications">Push Notifications</option>
-                                    <option value="Club Dashboard">Club Dashboard</option>
-                                    <option value="Branded Storefronts">Branded Storefronts</option>
-                                    <option value="Analytics & Growth">Analytics & Growth</option>
-                                    <option value="Sponsor Exposure">Sponsor Exposure</option>
+                                <div>
+                                    <label className={labelStyles}>Most anticipated feature *</label>
+                                    <select name="anticipatedFeature" value={formData.anticipatedFeature} onChange={handleChange} className={inputStyles}>
+                                        <option value="" className="text-black">Select a feature</option>
+                                        <option value="Announcement Board" className="text-black">Announcement Board</option>
+                                        <option value="Gamification with Badges/Rewards" className="text-black">Gamification with Badges/Rewards</option>
+                                        <option value="Push Notifications" className="text-black">Push Notifications</option>
+                                        <option value="Club Dashboard" className="text-black">Club Dashboard</option>
+                                        <option value="Branded Storefronts" className="text-black">Branded Storefronts</option>
+                                        <option value="Analytics & Growth" className="text-black">Analytics &amp; Growth</option>
+                                        <option value="Sponsor Exposure" className="text-black">Sponsor Exposure</option>
+                                    </select>
+                                </div>
 
-                                </select>
-                            </div>
+                                <div>
+                                    <label className={labelStyles}>Additional comments</label>
+                                    <textarea name="message" value={formData.message} onChange={handleChange} rows={4} className={inputStyles} placeholder="Let us know anything else!" />
+                                </div>
 
-                            <div>
-                                <label className="block text-sm font-medium mb-2">Additional Comments</label>
-                                <textarea name="message" value={formData.message} onChange={handleChange} rows={4} className={baseInputStyles} placeholder="Let us know anything else!" />
-                            </div>
-
-                            <button
-                                type="submit"
-                                disabled={loading}
-                                className="w-full py-4 px-6 rounded-xl bg-white text-[#001733] font-semibold text-lg transition hover:bg-gray-100 disabled:opacity-50 mt-6"
-                            >
-                                {loading ? 'Submitting...' : 'Submit'}
-                            </button>
-                        </form>
-                    )}
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className="group flex w-full items-center justify-center gap-2 rounded-full brand-gradient py-4 px-6 text-lg font-bold text-ink-on-accent shadow-lg shadow-brand/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-brand/50 disabled:opacity-50 disabled:hover:scale-100"
+                                >
+                                    {loading ? 'Submitting...' : 'Submit'}
+                                    {!loading && <FiSend className="transition-transform duration-300 group-hover:translate-x-1" />}
+                                </button>
+                            </form>
+                        )}
+                    </motion.div>
                 </div>
             </div>
         </section>

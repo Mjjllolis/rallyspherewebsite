@@ -6,10 +6,9 @@ import type { IAccordionItem } from "@/types";
 
 interface Props {
   items: IAccordionItem[];
-  isDark?: boolean;
 }
 
-const FeatureAccordion: React.FC<Props> = ({ items, isDark = false }) => {
+const FeatureAccordion: React.FC<Props> = ({ items }) => {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
@@ -19,31 +18,18 @@ const FeatureAccordion: React.FC<Props> = ({ items, isDark = false }) => {
         return (
           <div
             key={item.title}
-            className={`rounded-2xl border transition-colors ${
-              isDark
-                ? "border-white/15 bg-white/5 hover:bg-white/10"
-                : "border-gray-200 bg-white/60 hover:bg-white/90"
-            }`}
+            className="rounded-2xl border border-line bg-surface-1 hover:bg-surface-2 transition-colors"
           >
             <button
               onClick={() => setOpenIndex(isOpen ? -1 : i)}
               className="flex items-center justify-between w-full px-5 py-4 text-left"
             >
-              <span
-                className={`text-lg font-semibold ${
-                  isDark ? "text-white" : "text-gray-900"
-                }`}
-              >
-                {item.title}
-              </span>
+              <span className="text-lg font-semibold text-ink">{item.title}</span>
               <motion.span
                 animate={{ rotate: isOpen ? 180 : 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <FiChevronDown
-                  size={20}
-                  className={isDark ? "text-white/60" : "text-gray-400"}
-                />
+                <FiChevronDown size={20} className="text-ink-muted" />
               </motion.span>
             </button>
             <AnimatePresence initial={false}>
@@ -59,34 +45,16 @@ const FeatureAccordion: React.FC<Props> = ({ items, isDark = false }) => {
                     {item.bullets.map((bullet) => (
                       <div
                         key={bullet.title}
-                        className={`flex gap-3 p-3 rounded-xl transition-colors ${
-                          isDark
-                            ? "bg-white/5 hover:bg-white/10"
-                            : "bg-gray-50 hover:bg-gray-100"
-                        }`}
+                        className="flex gap-3 p-3 rounded-xl bg-surface-2 hover:bg-surface-3 transition-colors"
                       >
-                        <div
-                          className={`flex-shrink-0 w-11 h-11 rounded-lg flex items-center justify-center ${
-                            isDark
-                              ? "bg-gradient-to-br from-cyan-400 to-blue-500 text-white"
-                              : "bg-gradient-to-br from-blue-500 to-cyan-500 text-white"
-                          }`}
-                        >
+                        <div className="flex-shrink-0 w-11 h-11 rounded-lg brand-gradient-br flex items-center justify-center text-ink-on-accent">
                           {bullet.icon}
                         </div>
                         <div>
-                          <h5
-                            className={`text-base font-semibold ${
-                              isDark ? "text-white" : "text-gray-900"
-                            }`}
-                          >
+                          <h5 className="text-base font-semibold text-ink">
                             {bullet.title}
                           </h5>
-                          <p
-                            className={`text-sm leading-relaxed ${
-                              isDark ? "text-white/70" : "text-gray-500"
-                            }`}
-                          >
+                          <p className="text-sm leading-relaxed text-ink-secondary">
                             {bullet.description}
                           </p>
                         </div>

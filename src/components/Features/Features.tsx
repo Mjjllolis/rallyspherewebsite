@@ -15,14 +15,14 @@ const Features: React.FC = () => {
       <Section3Commerce />
 
       {/* Separator between Commerce and Credits */}
-      <div className="relative hero-gradient">
+      <div className="relative surface-navy">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 xl:px-20">
           <div className="flex items-center gap-6">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
-            <div className="w-2 h-2 rounded-full bg-cyan-400/40" />
-            <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 opacity-50" />
-            <div className="w-2 h-2 rounded-full bg-blue-400/40" />
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-blue-400/30 to-transparent" />
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-accent-via/30 to-transparent" />
+            <div className="w-2 h-2 rounded-full bg-accent-via/40" />
+            <div className="w-3 h-3 rounded-full brand-gradient opacity-50" />
+            <div className="w-2 h-2 rounded-full bg-accent-from/40" />
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-accent-from/30 to-transparent" />
           </div>
         </div>
       </div>

@@ -21,19 +21,19 @@ const FeatureGrid: React.FC<Props> = ({ cards }) => {
             ease: "easeOut",
           }}
           whileHover={{ y: -4, transition: { duration: 0.2 } }}
-          className="group relative p-5 rounded-2xl bg-white/60 hover:bg-white/90 border border-gray-200 hover:border-blue-200 shadow-sm hover:shadow-lg transition-all"
+          className="group relative p-5 rounded-2xl bg-surface-1 hover:bg-surface-2 border border-line hover:border-brand/40 shadow-sm hover:shadow-lg transition-all"
         >
           {/* Hover glow */}
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+          <div className="absolute inset-0 rounded-2xl brand-gradient-br opacity-0 group-hover:opacity-[0.06] transition-opacity pointer-events-none" />
 
           <div className="relative z-10">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white shadow-md mb-3">
+            <div className="w-12 h-12 rounded-xl brand-gradient-br flex items-center justify-center text-ink-on-accent shadow-md mb-3">
               {card.icon}
             </div>
-            <h4 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors mb-1.5">
+            <h4 className="text-lg font-semibold text-ink group-hover:text-brand transition-colors mb-1.5">
               {card.title}
             </h4>
-            <p className="text-base text-gray-500 leading-relaxed">
+            <p className="text-base text-ink-secondary leading-relaxed">
               {card.description}
             </p>
           </div>

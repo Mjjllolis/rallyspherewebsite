@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Source_Sans_3, Manrope } from "next/font/google";
 
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { siteDetails } from '@/data/siteDetails';
 
 import { Analytics } from "@vercel/analytics/next"
@@ -44,18 +44,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${manrope.className} ${sourceSans.className} antialiased`}
       >
         {siteDetails.googleAnalyticsId && <GoogleAnalytics gaId={siteDetails.googleAnalyticsId} />}
-        <div className="relative">
-          <main className="relative z-0">
-            {children}
-            <Analytics />
-          </main>
-        </div>
-        <Footer />
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+          <div className="relative">
+            <main className="relative z-0">
+              {children}
+              <Analytics />
+            </main>
+          </div>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

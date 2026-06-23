@@ -1,7 +1,9 @@
 "use client";
-import { useState, useCallback } from "react";
+
+import { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useTilt } from "@/lib/useTilt";
 import type { ICarouselSlide } from "@/types";
 
 interface Props {
@@ -22,34 +24,10 @@ const slideVariants = {
 
 const FeatureCarousel: React.FC<Props> = ({ slides }) => {
   const [[activeIndex, direction], setActiveIndex] = useState([0, 0]);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const rotateXSpring = useSpring(mouseY, { stiffness: 150, damping: 20 });
-  const rotateYSpring = useSpring(mouseX, { stiffness: 150, damping: 20 });
-
-  const rotateXFinal = useTransform(rotateXSpring, (v) => 5 + v);
-  const rotateYFinal = useTransform(rotateYSpring, (v) => 20 + v);
-
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const x = (e.clientX - centerX) / (rect.width / 2);
-      const yPos = (e.clientY - centerY) / (rect.height / 2);
-      mouseX.set(x * 8);
-      mouseY.set(-yPos * 5);
-    },
-    [mouseX, mouseY]
-  );
-
-  const handleMouseLeave = useCallback(() => {
-    setIsHovered(false);
-    mouseX.set(0);
-    mouseY.set(0);
-  }, [mouseX, mouseY]);
+  const { isHovered, rotateX, rotateY, handlers } = useTilt({
+    baseRotateX: 5,
+    baseRotateY: 20,
+  });
 
   const goTo = (index: number) => {
     setActiveIndex([index, index > activeIndex ? 1 : -1]);
@@ -60,15 +38,15 @@ const FeatureCarousel: React.FC<Props> = ({ slides }) => {
   return (
     <div className="space-y-8">
       {/* Tab buttons */}
-      <div className="flex justify-center gap-2 sm:gap-3">
+      <div className="flex justify-center gap-2 sm:gap-3 flex-wrap">
         {slides.map((s, i) => (
           <button
             key={s.label}
             onClick={() => goTo(i)}
             className={`px-4 py-2 sm:px-6 sm:py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
               i === activeIndex
-                ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/25"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "brand-gradient text-ink-on-accent shadow-lg shadow-brand/25"
+                : "bg-surface-2 text-ink-secondary hover:bg-surface-3"
             }`}
           >
             {s.label}
@@ -82,9 +60,7 @@ const FeatureCarousel: React.FC<Props> = ({ slides }) => {
         <div
           className="relative mx-auto w-full max-w-[280px] lg:max-w-none"
           style={{ perspective: "1200px" }}
-          onMouseMove={handleMouseMove}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={handleMouseLeave}
+          {...handlers}
         >
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
@@ -98,8 +74,8 @@ const FeatureCarousel: React.FC<Props> = ({ slides }) => {
               className="relative"
               style={{
                 transformStyle: "preserve-3d",
-                rotateX: rotateXFinal,
-                rotateY: rotateYFinal,
+                rotateX,
+                rotateY,
               }}
             >
               {/* Shadow on surface */}
@@ -112,7 +88,7 @@ const FeatureCarousel: React.FC<Props> = ({ slides }) => {
               />
 
               <div
-                className={`absolute inset-0 blur-3xl opacity-25 rounded-[2rem] bg-gradient-to-br from-blue-400 to-cyan-400 -rotate-3 pointer-events-none transition-opacity duration-300 ${isHovered ? "opacity-40" : ""}`}
+                className={`absolute inset-0 blur-3xl opacity-25 rounded-[2rem] brand-gradient-br -rotate-3 pointer-events-none transition-opacity duration-300 ${isHovered ? "opacity-40" : ""}`}
                 style={{ transform: "translateZ(-50px)" }}
               />
 
@@ -162,16 +138,16 @@ const FeatureCarousel: React.FC<Props> = ({ slides }) => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.1, duration: 0.3 }}
-                className="flex gap-4 group p-4 rounded-xl bg-white/60 hover:bg-white/90 transition-colors shadow-sm hover:shadow-md"
+                className="flex gap-4 group p-4 rounded-xl bg-surface-1 border border-line hover:border-brand/40 transition-colors shadow-sm hover:shadow-md"
               >
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white shadow-lg">
+                <div className="flex-shrink-0 w-12 h-12 rounded-xl brand-gradient-br flex items-center justify-center text-ink-on-accent shadow-lg">
                   {bullet.icon}
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                  <h4 className="text-lg font-semibold text-ink group-hover:text-brand transition-colors">
                     {bullet.title}
                   </h4>
-                  <p className="text-base text-gray-600 leading-relaxed">
+                  <p className="text-base text-ink-secondary leading-relaxed">
                     {bullet.description}
                   </p>
                 </div>
@@ -187,10 +163,9 @@ const FeatureCarousel: React.FC<Props> = ({ slides }) => {
           <button
             key={i}
             onClick={() => goTo(i)}
-            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-              i === activeIndex
-                ? "bg-blue-600 w-8"
-                : "bg-gray-300 hover:bg-gray-400"
+            aria-label={`Go to slide ${i + 1}`}
+            className={`h-2.5 rounded-full transition-all duration-300 ${
+              i === activeIndex ? "bg-brand w-8" : "bg-line-strong w-2.5 hover:bg-brand/60"
             }`}
           />
         ))}

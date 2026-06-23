@@ -1,8 +1,10 @@
 "use client";
-import { useRef, useState, useCallback } from "react";
+
+import { useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import clsx from "clsx";
+import { useTilt } from "@/lib/useTilt";
 
 interface Props {
   src: string;
@@ -20,58 +22,33 @@ const ParallaxPhone: React.FC<Props> = ({
   className,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], parallaxRange);
-
-  const [isHovered, setIsHovered] = useState(false);
-
-  // Mouse-tracking rotation
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const rotateXSpring = useSpring(mouseY, { stiffness: 150, damping: 20 });
-  const rotateYSpring = useSpring(mouseX, { stiffness: 150, damping: 20 });
+  const y = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : parallaxRange);
 
   const baseRotateY = tiltDirection === "right" ? -20 : 20;
-  const baseRotateX = 5;
-
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const x = (e.clientX - centerX) / (rect.width / 2);
-      const yPos = (e.clientY - centerY) / (rect.height / 2);
-      mouseX.set(x * 8);
-      mouseY.set(-yPos * 5);
-    },
-    [mouseX, mouseY]
-  );
-
-  const handleMouseLeave = useCallback(() => {
-    setIsHovered(false);
-    mouseX.set(0);
-    mouseY.set(0);
-  }, [mouseX, mouseY]);
+  const { isHovered, rotateX, rotateY, handlers } = useTilt({
+    baseRotateX: 5,
+    baseRotateY,
+  });
 
   return (
     <div
       ref={ref}
       className={clsx("relative w-full max-w-[340px] mx-auto", className)}
       style={{ perspective: "1200px" }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
+      {...handlers}
     >
       <motion.div
         className="relative w-full"
         style={{
           y,
           transformStyle: "preserve-3d",
-          rotateY: useTransform(rotateYSpring, (v) => baseRotateY + v),
-          rotateX: useTransform(rotateXSpring, (v) => baseRotateX + v),
+          rotateY,
+          rotateX,
         }}
       >
         {/* Shadow on surface */}
@@ -86,11 +63,9 @@ const ParallaxPhone: React.FC<Props> = ({
         {/* Glow */}
         <div
           className={clsx(
-            "absolute inset-0 blur-3xl opacity-30 rounded-[2rem] pointer-events-none transition-opacity duration-300",
+            "absolute inset-0 blur-3xl opacity-30 rounded-[2rem] pointer-events-none transition-opacity duration-300 brand-gradient-br",
             isHovered && "opacity-45",
-            tiltDirection === "left"
-              ? "bg-gradient-to-br from-blue-400 to-cyan-400 -rotate-6"
-              : "bg-gradient-to-bl from-cyan-400 to-purple-400 rotate-6"
+            tiltDirection === "left" ? "-rotate-6" : "rotate-6"
           )}
           style={{ transform: "translateZ(-50px)" }}
         />

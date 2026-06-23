@@ -1,5 +1,5 @@
 export const heroDetails = {
-    heading: 'Smart, Secure, Simple Financial Management',
-    subheading: 'From effortless budgeting to real-time investment insights, RallySphere puts you in control of your money like never before',
+    heading: 'All-in-One Platform for Clubs and Players',
+    subheading: 'Manage games, coaching, events, memberships, analytics, and merch—all from your phone or computer.',
     centerImageSrc: '/images/LogoWithText.png',
-}
+};

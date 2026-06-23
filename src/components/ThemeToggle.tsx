@@ -1,43 +1,36 @@
 'use client';
+
 import { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
 import { HiMoon, HiSun } from 'react-icons/hi2';
 
-const ThemeToggle = () => {
-    const [isDark, setIsDark] = useState(false); // Default to light mode
+interface ThemeToggleProps {
+    className?: string;
+}
 
-    useEffect(() => {
-        const stored = localStorage.getItem('theme');
-        // Default to light mode if no preference is stored
-        if (stored === 'dark') {
-            document.documentElement.classList.add('dark');
-            setIsDark(true);
-        } else {
-            document.documentElement.classList.remove('dark');
-            setIsDark(false);
-            if (!stored) {
-                localStorage.setItem('theme', 'light');
-            }
-        }
-    }, []);
+const ThemeToggle = ({ className = '' }: ThemeToggleProps) => {
+    const { resolvedTheme, setTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
 
-    const toggle = () => {
-        const html = document.documentElement;
-        const next = !isDark;
-        html.classList.toggle('dark', next);
-        localStorage.setItem('theme', next ? 'dark' : 'light');
-        setIsDark(next);
-    };
+    // Avoid hydration mismatch — only render the resolved icon after mount.
+    useEffect(() => setMounted(true), []);
+
+    const isDark = resolvedTheme === 'dark';
 
     return (
         <button
-            onClick={toggle}
-            className="p-2.5 rounded-full transition-all duration-300 hover:scale-110 bg-white/10 hover:bg-white/20 backdrop-blur-sm"
-            aria-label="Toggle theme"
+            onClick={() => setTheme(isDark ? 'light' : 'dark')}
+            className={`p-2.5 rounded-full transition-all duration-300 hover:scale-110 bg-white/10 hover:bg-white/20 backdrop-blur-sm ${className}`}
+            aria-label="Toggle color theme"
+            type="button"
         >
-            {isDark ? (
-                <HiSun className="w-6 h-6 text-yellow-300" />
+            {/* Render a stable placeholder until mounted to keep SSR/CSR markup identical */}
+            {!mounted ? (
+                <span className="block w-6 h-6" />
+            ) : isDark ? (
+                <HiSun className="w-6 h-6 text-accent-via" />
             ) : (
-                <HiMoon className="w-6 h-6 text-blue-400" />
+                <HiMoon className="w-6 h-6 text-accent-via" />
             )}
         </button>
     );

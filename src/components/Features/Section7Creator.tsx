@@ -4,12 +4,12 @@ import { section7Highlights } from "@/data/features";
 
 const Section7Creator: React.FC = () => {
   return (
-    <section className="relative py-20 lg:py-28 overflow-hidden hero-gradient">
+    <section className="relative py-28 lg:py-40 overflow-hidden surface-navy text-ink-on-inverse">
       {/* Grid texture */}
-      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px]" />
+      <div className="absolute inset-0 z-0 grid-overlay opacity-60" />
 
       <div className="relative z-10 w-full px-6 lg:px-12 xl:px-20">
-        <div className="max-w-[1600px] mx-auto space-y-12">
+        <div className="max-w-[1600px] mx-auto space-y-16">
           {/* Header */}
           <motion.div
             className="text-center space-y-4 max-w-2xl mx-auto"
@@ -18,13 +18,13 @@ const Section7Creator: React.FC = () => {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.4 }}
           >
-            <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400">
+            <p className="text-sm font-semibold uppercase tracking-widest text-gradient inline-block">
               Monetize Your Community
             </p>
-            <h3 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white">
+            <h3 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-ink-on-inverse">
               Creator Economy
             </h3>
-            <p className="text-lg lg:text-xl text-white/80 leading-relaxed">
+            <p className="text-lg lg:text-xl text-ink-on-inverse-muted leading-relaxed">
               Everything clubs need to generate revenue and grow sustainably.
             </p>
           </motion.div>
@@ -42,16 +42,16 @@ const Section7Creator: React.FC = () => {
                 className="group relative p-6 rounded-2xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 hover:border-white/25 transition-all"
               >
                 {/* Hover glow */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                <div className="absolute inset-0 rounded-2xl brand-gradient-br opacity-0 group-hover:opacity-10 transition-opacity pointer-events-none" />
 
                 <div className="relative z-10">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white shadow-lg mb-4">
+                  <div className="w-12 h-12 rounded-xl brand-gradient-br flex items-center justify-center text-ink-on-accent shadow-lg mb-4">
                     {item.icon}
                   </div>
-                  <h4 className="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors mb-2">
+                  <h4 className="text-lg font-bold text-ink-on-inverse group-hover:text-accent-via transition-colors mb-2">
                     {item.title}
                   </h4>
-                  <p className="text-sm text-white/70 leading-relaxed">
+                  <p className="text-sm text-ink-on-inverse-muted leading-relaxed">
                     {item.description}
                   </p>
                 </div>

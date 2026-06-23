@@ -2,61 +2,158 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Light mode variables */
+/* ============================================================
+   Design tokens — role-based, blue/cyan-on-navy identity.
+   Every color/surface/border/gradient resolves to a variable
+   that flips between :root (light) and .dark (dark).
+   ============================================================ */
+
 :root {
-	--background: #ffffff;
-	--foreground: #171717;
-	--primary: #fed835;
-	--secondary: #304fff;
-	--primary-accent: #e5c230;
-	--foreground-accent: #454545;
-	--hero-background: #f3f3f5;
+	/* Surfaces */
+	--bg: #f7f9fc;
+	--surface-1: #ffffff;
+	--surface-2: #f1f5fb;
+	--surface-3: #e6edf7;
+	--surface-inverse: #0b1120; /* navy panel — reused in BOTH modes */
+
+	/* Text */
+	--text-primary: #0f1b2d;
+	--text-secondary: #334155;
+	--text-muted: #64748b;
+	--text-on-accent: #ffffff;
+	--text-on-inverse: #ffffff; /* text sitting on navy panels */
+	--text-on-inverse-muted: rgba(255, 255, 255, 0.72);
+
+	/* Borders / focus */
+	--border: #e2e8f0;
+	--border-strong: #cbd5e1;
+	--ring: #2d7cf6;
+	--grid-line: rgba(15, 27, 45, 0.06);
+
+	/* Brand / accent gradient stops */
+	--brand: #2d7cf6;
+	--brand-strong: #1e63d8;
+	--accent-from: #3b82f6;
+	--accent-via: #38bdf8;
+	--accent-to: #22d3ee;
+
+	/* Navy gradient stops (for the inverse panels) */
+	--navy-1: #0b1120;
+	--navy-2: #152238;
+	--navy-3: #1a2f50;
 }
 
-/* Dark mode variables (class-based) */
 .dark {
-	--background: #0A0F1C;
-	--foreground: #ffffff;
-	--primary: #fed835;
-	--secondary: #3b82f6;
-	--primary-accent: #facc15;
-	--foreground-accent: #e5e5e5;
-	--hero-background: #0B1120;
+	/* Surfaces */
+	--bg: #0a0f1c;
+	--surface-1: #0f1729;
+	--surface-2: #152238;
+	--surface-3: #1b2b49;
+	--surface-inverse: #0b1120;
+
+	/* Text */
+	--text-primary: #ffffff;
+	--text-secondary: #cbd5e1;
+	--text-muted: #94a3b8;
+	--text-on-accent: #ffffff;
+	--text-on-inverse: #ffffff;
+	--text-on-inverse-muted: rgba(255, 255, 255, 0.72);
+
+	/* Borders / focus */
+	--border: rgba(255, 255, 255, 0.1);
+	--border-strong: rgba(255, 255, 255, 0.18);
+	--ring: #38bdf8;
+	--grid-line: rgba(255, 255, 255, 0.07);
+
+	/* Brand / accent */
+	--brand: #3b82f6;
+	--brand-strong: #2d7cf6;
+	--accent-from: #3b82f6;
+	--accent-via: #38bdf8;
+	--accent-to: #22d3ee;
+
+	/* Navy gradient stops — even darker in dark mode */
+	--navy-1: #050a15;
+	--navy-2: #0b1120;
+	--navy-3: #152238;
 }
 
-/* Custom gradient for hero section - darker to make logo pop */
-.hero-gradient {
-	background: linear-gradient(135deg, #0B1120 0%, #152238 40%, #1A2F50 100%);
+/* ============================================================
+   Reusable gradient / texture utilities (token-driven)
+   so JSX never hardcodes hex gradients again.
+   ============================================================ */
+@layer components {
+	/* Navy panel gradient — header/footer/hero/separators.
+	   Replaces the old .hero-gradient + .dark .hero-gradient pair. */
+	.surface-navy {
+		background: linear-gradient(135deg, var(--navy-1) 0%, var(--navy-2) 40%, var(--navy-3) 100%);
+	}
+
+	/* Brand accent gradients */
+	.brand-gradient {
+		background-image: linear-gradient(to right, var(--accent-from), var(--accent-via), var(--accent-to));
+	}
+	.brand-gradient-br {
+		background-image: linear-gradient(to bottom right, var(--accent-from), var(--accent-via), var(--accent-to));
+	}
+
+	/* Gradient text */
+	.text-gradient {
+		background-image: linear-gradient(to right, var(--accent-from), var(--accent-to));
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+
+	/* Animated shimmering gradient text — for hero/section headlines */
+	.text-gradient-animated {
+		background-image: linear-gradient(
+			110deg,
+			var(--accent-from),
+			var(--accent-via),
+			var(--accent-to),
+			var(--accent-via),
+			var(--accent-from)
+		);
+		background-size: 200% auto;
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		animation: gradient-shift 6s linear infinite;
+	}
+
+	/* 40px grid overlay (replaces repeated inline bg-[linear-gradient(...)]) */
+	.grid-overlay {
+		background-image:
+			linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+			linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+		background-size: 40px 40px;
+	}
 }
 
-/* Hero gradient for dark mode - even darker */
-.dark .hero-gradient {
-	background: linear-gradient(135deg, #050A15 0%, #0B1120 50%, #152238 100%);
-}
-
-/* Ensure scroll behavior works in Safari */
+/* ============================================================
+   Base element styling
+   ============================================================ */
 html {
 	@apply scroll-smooth;
 	-webkit-font-smoothing: antialiased;
 	overflow-x: hidden;
 }
 
-/* Fallbacks for Safari rendering quirks */
 body {
 	@apply text-lg;
-	color: var(--foreground, #171717);
-	background: var(--background, #ffffff);
+	color: var(--text-primary);
+	background: var(--bg);
 	font-family: "Source Sans 3", sans-serif;
-	/* Safari sometimes ignores optical sizing */
 	font-variation-settings: "wght" 400;
 	font-style: normal;
 	margin: 0;
 	padding: 0;
 	overflow-x: hidden;
 	width: 100%;
+	transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Fix text-wrap issues in older Safari */
 @layer utilities {
 	.text-balance {
 		text-wrap: balance;
@@ -90,12 +187,6 @@ h6 {
 	display: inline-block;
 }
 
-/* Margin fixes for Safari not honoring :last-of-type properly */
-.benefit-section:last-of-type > div {
-	@apply mb-10;
-}
-
-/* Mobile overflow fixes */
 * {
 	box-sizing: border-box;
 }
@@ -109,16 +200,60 @@ h6 {
 	animation: spin-gradient 6s linear infinite;
 }
 
+/* Shimmer for .text-gradient-animated */
+@keyframes gradient-shift {
+	0% { background-position: 0% 50%; }
+	100% { background-position: 200% 50%; }
+}
+
+/* Gentle float — for hero logo / floating accents */
+@keyframes float-y {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-12px); }
+}
+.animate-float {
+	animation: float-y 5s ease-in-out infinite;
+}
+
+/* Infinite horizontal marquee (track is duplicated, so -50% loops seamlessly) */
+@keyframes marquee {
+	from { transform: translateX(0); }
+	to { transform: translateX(-50%); }
+}
+.animate-marquee {
+	animation: marquee 45s linear infinite;
+}
+.animate-marquee-rev {
+	animation: marquee 45s linear infinite reverse;
+}
+
 /* Prevent horizontal scroll on mobile */
 @media (max-width: 768px) {
 	body, html {
 		max-width: 100vw;
 		overflow-x: hidden;
 	}
-	
-	/* Ensure all sections stay within viewport */
 	section {
 		max-width: 100vw;
 		overflow-x: hidden;
+	}
+}
+
+/* ============================================================
+   Accessibility: respect reduced-motion as a CSS backstop.
+   (Component-level useReducedMotion() handles framer-motion.)
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+		scroll-behavior: auto !important;
+	}
+	.animate-spin-gradient,
+	.animate-pulse {
+		animation: none !important;
 	}
 }

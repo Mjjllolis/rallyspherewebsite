@@ -3,23 +3,27 @@ import { siteDetails } from "./siteDetails";
 
 export const faqs: IFAQ[] = [
     {
-        question: `Is ${siteDetails.siteName} secure?`,
-        answer: 'Absolutely. We use bank-level encryption to protect your data and never store your login information. Plus, our biometric authentication adds an extra layer of security.',
+        question: `What is ${siteDetails.siteName}?`,
+        answer: `${siteDetails.siteName} is an all-in-one platform for sports clubs and players. Discover and join clubs, RSVP to events, manage memberships, sell merch, run payouts, and reward your community — all from your phone or computer.`,
     },
     {
-        question: `Can I use ${siteDetails.siteName} on multiple devices?`,
-        answer: 'Absolutely! Your RallySphere account syncs seamlessly across all your devices - smartphone, tablet, and computer.',
+        question: `How much does ${siteDetails.siteName} cost?`,
+        answer: 'There are no monthly subscriptions or upfront costs for players or clubs. We charge a small transaction fee per booking or purchase, and clubs can choose to absorb that fee on behalf of their players.',
     },
     {
-        question: 'Can I connect all my bank accounts?',
-        answer: `Yes! ${siteDetails.siteName} supports connections with over 10,000 financial institutions worldwide. Simply log in through our secure portal to link your accounts.`
+        question: 'Who is RallySphere for?',
+        answer: 'Players looking to discover events and clubs, clubs and facilities that want to run and monetize their community, and sponsors looking to reach engaged local players. There’s a tailored experience for each.',
     },
     {
-        question: 'Do I need any financial expertise to use the investing features?',
-        answer: 'Not at all! Our expert-curated portfolios and educational resources make investing accessible to everyone, regardless of experience level.',
+        question: 'What are Rally Credits?',
+        answer: 'Rally Credits are our built-in loyalty system. Players earn credits by attending events and engaging with their clubs, then redeem them for rewards and discounts. Clubs get insight into player engagement along the way.',
     },
     {
-        question: 'What if I need help using the app?',
-        answer: 'Our dedicated support team is available 24/7 via chat or email. Plus, we offer extensive in-app tutorials and a comprehensive knowledge base to help you make the most of RallySphere.'
-    }
+        question: 'Can clubs sell merchandise and collect payments?',
+        answer: 'Yes. Clubs get a built-in storefront to sell merch, passes, and memberships with Apple Pay and Google Pay at checkout, plus secure direct payouts. Pickup is available now and shipping is coming soon.',
+    },
+    {
+        question: 'When will RallySphere be available?',
+        answer: 'RallySphere is launching soon on the App Store and Google Play. Use the form below to join the waitlist and tell us the features you’re most excited about — we’ll keep you posted.',
+    },
 ];

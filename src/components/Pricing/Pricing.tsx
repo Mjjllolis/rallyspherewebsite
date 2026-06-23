@@ -66,7 +66,7 @@ const Pricing: React.FC = () => {
     <div className="w-full max-w-3xl mx-auto py-8">
       {/* Toggle tabs */}
       <div className="flex justify-center mb-10">
-        <div className="inline-flex bg-[#0B1120] rounded-full p-1.5 border border-white/10">
+        <div className="inline-flex bg-navy-1 rounded-full p-1.5 border border-white/10">
           {tiers.map((t, i) => (
             <button
               key={t.title}
@@ -101,7 +101,7 @@ const Pricing: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className="bg-[#0B1120] rounded-3xl shadow-2xl border border-white/10 overflow-hidden"
+          className="bg-navy-2 rounded-3xl shadow-2xl border border-white/10 overflow-hidden"
         >
           {/* Header */}
           <div className="px-8 pt-10 pb-8 text-center">

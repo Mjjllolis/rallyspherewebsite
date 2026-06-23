@@ -1,8 +1,27 @@
 'use client';
 
-import { useRef, useMemo, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { useRef, useMemo, useState, useEffect } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { heroSphereColors, palette } from '@/lib/palette';
+import Canvas3DBoundary from './Canvas3DBoundary';
+
+function useWebGLSupported() {
+  const [supported, setSupported] = useState(false);
+  useEffect(() => {
+    try {
+      const canvas = document.createElement('canvas');
+      const gl =
+        canvas.getContext('webgl2') ||
+        canvas.getContext('webgl') ||
+        canvas.getContext('experimental-webgl');
+      setSupported(!!gl);
+    } catch {
+      setSupported(false);
+    }
+  }, []);
+  return supported;
+}
 
 interface AnimatedSphereProps {
   position: [number, number, number];
@@ -113,22 +132,22 @@ function FloatingParticles({ mousePosition }: { mousePosition: { x: number; y: n
 }
 
 function Scene({ mousePosition }: { mousePosition: { x: number; y: number } }) {
-  const spheres: Omit<AnimatedSphereProps, 'mousePosition'>[] = [
-    { position: [-4, 2, -3], color: '#0066ff', scale: 1.4 },
-    { position: [4, -2, -4], color: '#00d4ff', scale: 1.2 },
-    { position: [-3, -3, -2], color: '#0088ff', scale: 1 },
-    { position: [5, 3, -5], color: '#0066ff', scale: 1.6 },
-    { position: [0, -4, -3], color: '#00aaff', scale: 1.3 },
-    { position: [-5, 0, -4], color: '#0099ff', scale: 1.1 },
-    { position: [2, 4, -2], color: '#00d4ff', scale: 1.5 },
-    { position: [-1, 1, -3], color: '#0077ff', scale: 0.9 },
+  const positions: [number, number, number][] = [
+    [-4, 2, -3], [4, -2, -4], [-3, -3, -2], [5, 3, -5],
+    [0, -4, -3], [-5, 0, -4], [2, 4, -2], [-1, 1, -3],
   ];
+  const scales = [1.4, 1.2, 1, 1.6, 1.3, 1.1, 1.5, 0.9];
+  const spheres: Omit<AnimatedSphereProps, 'mousePosition'>[] = positions.map((position, i) => ({
+    position,
+    color: heroSphereColors[i],
+    scale: scales[i],
+  }));
 
   return (
     <>
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 5, 5]} intensity={0.6} />
-      <pointLight position={[-5, -5, 5]} intensity={0.4} color="#0066ff" />
+      <pointLight position={[-5, -5, 5]} intensity={0.4} color={palette.brightBlue} />
 
       {spheres.map((sphere, index) => (
         <AnimatedSphere key={index} {...sphere} mousePosition={mousePosition} />
@@ -141,6 +160,7 @@ function Scene({ mousePosition }: { mousePosition: { x: number; y: number } }) {
 
 export default function Hero3DBackground() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const webglSupported = useWebGLSupported();
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -149,18 +169,24 @@ export default function Hero3DBackground() {
     setMousePosition({ x, y });
   };
 
+  // If WebGL isn't available, render nothing — the photo/gradient hero stands
+  // on its own and the page never crashes.
+  if (!webglSupported) return null;
+
   return (
     <div
       className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none"
       onMouseMove={handleMouseMove}
     >
-      <Canvas
-        camera={{ position: [0, 0, 8], fov: 60 }}
-        className="w-full h-full"
-        gl={{ alpha: true, antialias: true }}
-      >
-        <Scene mousePosition={mousePosition} />
-      </Canvas>
+      <Canvas3DBoundary>
+        <Canvas
+          camera={{ position: [0, 0, 8], fov: 60 }}
+          className="w-full h-full"
+          gl={{ alpha: true, antialias: true, failIfMajorPerformanceCaveat: false }}
+        >
+          <Scene mousePosition={mousePosition} />
+        </Canvas>
+      </Canvas3DBoundary>
     </div>
   );
 }
