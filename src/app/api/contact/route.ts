@@ -8,6 +8,8 @@ const {
   AZURE_CLIENT_SECRET,
   MAIL_FROM,
   MAIL_TO,
+  SP_SITE_ID,
+  SP_LIST_ID,
 } = process.env;
 
 interface ContactPayload {
@@ -47,25 +49,7 @@ async function getGraphToken(): Promise<string> {
   return data.access_token;
 }
 
-export async function POST(request: Request) {
-  // Fail loudly in logs if the deployment isn't configured yet.
-  if (!AZURE_TENANT_ID || !AZURE_CLIENT_ID || !AZURE_CLIENT_SECRET || !MAIL_FROM || !MAIL_TO) {
-    console.error('Contact API missing env vars (AZURE_TENANT_ID/CLIENT_ID/CLIENT_SECRET/MAIL_FROM/MAIL_TO).');
-    return NextResponse.json({ error: 'Contact form is not configured yet.' }, { status: 503 });
-  }
-
-  let body: ContactPayload;
-  try {
-    body = (await request.json()) as ContactPayload;
-  } catch {
-    return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
-  }
-
-  const { name, email, category, anticipatedFeature } = body;
-  if (!name || !email || !category || !anticipatedFeature) {
-    return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 });
-  }
-
+async function sendEmail(token: string, body: ContactPayload): Promise<void> {
   const rows = (
     [
       ['Name', body.name],
@@ -93,35 +77,85 @@ export async function POST(request: Request) {
       <table style="border-collapse:collapse">${rows}</table>
     </div>`;
 
+  const res = await fetch(
+    `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(MAIL_FROM!)}/sendMail`,
+    {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: {
+          subject: `New RallySphere contact: ${body.name} (${body.category})`,
+          body: { contentType: 'HTML', content: html },
+          toRecipients: [{ emailAddress: { address: MAIL_TO } }],
+          replyTo: body.email ? [{ emailAddress: { address: body.email } }] : undefined,
+        },
+        saveToSentItems: false,
+      }),
+    }
+  );
+  if (!res.ok) throw new Error(`sendMail ${res.status}: ${await res.text()}`);
+}
+
+async function addToSharePoint(token: string, body: ContactPayload): Promise<void> {
+  if (!SP_SITE_ID || !SP_LIST_ID) return; // SharePoint logging is optional
+  const fields = {
+    Title: body.name || '',
+    Email: body.email || '',
+    Phone: body.phone || '',
+    Category: body.category || '',
+    AnticipatedFeature: body.anticipatedFeature || '',
+    ClubName: body.clubName || '',
+    ClubSize: body.clubSize || '',
+    ClubLocation: body.clubLocation || '',
+    SponsorType: body.sponsorType || '',
+    Message: body.message || '',
+  };
+  const res = await fetch(
+    `https://graph.microsoft.com/v1.0/sites/${SP_SITE_ID}/lists/${SP_LIST_ID}/items`,
+    {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fields }),
+    }
+  );
+  if (!res.ok) throw new Error(`SharePoint add ${res.status}: ${await res.text()}`);
+}
+
+export async function POST(request: Request) {
+  if (!AZURE_TENANT_ID || !AZURE_CLIENT_ID || !AZURE_CLIENT_SECRET || !MAIL_FROM || !MAIL_TO) {
+    console.error('Contact API missing env vars (AZURE_TENANT_ID/CLIENT_ID/CLIENT_SECRET/MAIL_FROM/MAIL_TO).');
+    return NextResponse.json({ error: 'Contact form is not configured yet.' }, { status: 503 });
+  }
+
+  let body: ContactPayload;
+  try {
+    body = (await request.json()) as ContactPayload;
+  } catch {
+    return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
+  }
+
+  const { name, email, category, anticipatedFeature } = body;
+  if (!name || !email || !category || !anticipatedFeature) {
+    return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 });
+  }
+
   try {
     const token = await getGraphToken();
-    const graphRes = await fetch(
-      `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(MAIL_FROM)}/sendMail`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: {
-            subject: `New RallySphere contact: ${name} (${category})`,
-            body: { contentType: 'HTML', content: html },
-            toRecipients: [{ emailAddress: { address: MAIL_TO } }],
-            replyTo: [{ emailAddress: { address: email } }],
-          },
-          saveToSentItems: false,
-        }),
-      }
-    );
 
-    if (!graphRes.ok) {
-      const detail = await graphRes.text();
-      console.error('Graph sendMail failed:', graphRes.status, detail);
-      return NextResponse.json({ error: 'Could not send your message.' }, { status: 502 });
+    // Run both sinks; don't let one failure lose the lead from the other.
+    const [emailResult, spResult] = await Promise.allSettled([
+      sendEmail(token, body),
+      addToSharePoint(token, body),
+    ]);
+
+    if (emailResult.status === 'rejected') console.error('Email sink failed:', emailResult.reason);
+    if (spResult.status === 'rejected') console.error('SharePoint sink failed:', spResult.reason);
+
+    // Succeed if at least one sink captured the submission.
+    if (emailResult.status === 'fulfilled' || spResult.status === 'fulfilled') {
+      return NextResponse.json({ ok: true });
     }
-
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ error: 'Could not record your message.' }, { status: 502 });
   } catch (err) {
     console.error('Contact API error:', err);
     return NextResponse.json({ error: 'Unexpected error.' }, { status: 500 });
