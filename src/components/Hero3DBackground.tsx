@@ -3,7 +3,7 @@
 import { useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { heroSphereColors, palette } from '@/lib/palette';
+import { palette } from '@/lib/palette';
 import Canvas3DBoundary from './Canvas3DBoundary';
 
 function useWebGLSupported() {
@@ -21,49 +21,6 @@ function useWebGLSupported() {
     }
   }, []);
   return supported;
-}
-
-interface AnimatedSphereProps {
-  position: [number, number, number];
-  color: string;
-  scale: number;
-  mousePosition: { x: number; y: number };
-}
-
-function AnimatedSphere({ position, color, scale, mousePosition }: AnimatedSphereProps) {
-  const meshRef = useRef<THREE.Mesh>(null);
-
-  useFrame(({ clock }) => {
-    if (meshRef.current) {
-      // Slow rotation
-      meshRef.current.rotation.x += 0.001;
-      meshRef.current.rotation.y += 0.0015;
-
-      // Slow floating animation
-      const floatY = position[1] + Math.sin(clock.getElapsedTime() * 0.3 + position[0]) * 0.4;
-      meshRef.current.position.y = floatY;
-
-      // Mouse interaction - subtle following
-      const targetX = position[0] + mousePosition.x * 0.3;
-      const targetZ = position[2] + mousePosition.y * 0.2;
-
-      meshRef.current.position.x += (targetX - meshRef.current.position.x) * 0.015;
-      meshRef.current.position.z += (targetZ - meshRef.current.position.z) * 0.015;
-    }
-  });
-
-  return (
-    <mesh ref={meshRef} position={position} scale={scale}>
-      <sphereGeometry args={[0.5, 32, 32]} />
-      <meshStandardMaterial
-        color={color}
-        transparent
-        opacity={0.15}
-        roughness={0.4}
-        metalness={0.6}
-      />
-    </mesh>
-  );
 }
 
 function FloatingParticles({ mousePosition }: { mousePosition: { x: number; y: number } }) {
@@ -132,26 +89,11 @@ function FloatingParticles({ mousePosition }: { mousePosition: { x: number; y: n
 }
 
 function Scene({ mousePosition }: { mousePosition: { x: number; y: number } }) {
-  const positions: [number, number, number][] = [
-    [-4, 2, -3], [4, -2, -4], [-3, -3, -2], [5, 3, -5],
-    [0, -4, -3], [-5, 0, -4], [2, 4, -2], [-1, 1, -3],
-  ];
-  const scales = [1.4, 1.2, 1, 1.6, 1.3, 1.1, 1.5, 0.9];
-  const spheres: Omit<AnimatedSphereProps, 'mousePosition'>[] = positions.map((position, i) => ({
-    position,
-    color: heroSphereColors[i],
-    scale: scales[i],
-  }));
-
   return (
     <>
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 5, 5]} intensity={0.6} />
       <pointLight position={[-5, -5, 5]} intensity={0.4} color={palette.brightBlue} />
-
-      {spheres.map((sphere, index) => (
-        <AnimatedSphere key={index} {...sphere} mousePosition={mousePosition} />
-      ))}
 
       <FloatingParticles mousePosition={mousePosition} />
     </>

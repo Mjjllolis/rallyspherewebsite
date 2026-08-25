@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FiZap } from 'react-icons/fi';
@@ -18,32 +18,57 @@ const Hero3DBackground = dynamic(() => import('./Hero3DBackground'), {
 });
 
 const Hero: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Honor reduced-motion: hold on the poster frame instead of looping.
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const apply = () => {
+      const video = videoRef.current;
+      if (!video) return;
+      if (media.matches) {
+        video.pause();
+      } else {
+        void video.play().catch(() => {});
+      }
+    };
+    apply();
+    media.addEventListener('change', apply);
+    return () => media.removeEventListener('change', apply);
+  }, []);
+
   return (
     <>
       <Header className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] z-50" />
       <section
         id="hero"
-        className="relative flex items-center justify-center w-full min-h-screen px-6 sm:px-8 md:px-10 pt-44 sm:pt-48 md:pt-52 pb-0 surface-navy overflow-hidden"
+        className="relative flex items-center justify-center w-full min-h-[70vh] px-6 sm:px-8 md:px-10 pt-24 sm:pt-24 md:pt-24 pb-0 surface-navy overflow-hidden"
       >
-        {/* Photo background with brand overlay */}
+        {/* Video background with brand overlay */}
         <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/photos/hero.jpg"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-0 surface-navy opacity-[0.82]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-navy-1/70 via-transparent to-navy-1" />
+          <video
+            ref={videoRef}
+            className="absolute inset-0 h-full w-full object-cover object-center"
+            poster="/video/hero-poster.jpg"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+          >
+            <source src="/video/hero.webm" type="video/webm" />
+            <source src="/video/hero.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 surface-navy opacity-[0.72]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-navy-1/80 via-navy-1/30 to-navy-1" />
           <div className="absolute inset-0 grid-overlay opacity-40" />
         </div>
 
         {/* 3D animated shapes */}
         <Hero3DBackground />
 
-        <div className="flex flex-col items-center justify-center h-full text-center relative z-20 space-y-6">
+        <div className="flex flex-col items-center justify-center h-full text-center relative z-20 space-y-5">
           <motion.span
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -78,17 +103,17 @@ const Hero: React.FC = () => {
             <AppStoreButton dark />
             <PlayStoreButton dark />
           </motion.div>
-          <div className="relative mt-8 sm:mt-12 md:mt-16 mx-auto z-10">
+          <div className="relative mt-4 sm:mt-6 mx-auto z-10">
             <Image
               src={heroDetails.centerImageSrc}
               width={500}
               height={500}
               quality={100}
-              sizes="(max-width: 768px) 240px, (max-width: 1024px) 300px, 500px"
+              sizes="(max-width: 768px) 144px, (max-width: 1024px) 160px, 160px"
               priority={true}
               unoptimized={true}
               alt="RallySphere Logo"
-              className="relative z-10 w-60 sm:w-72 md:w-80 lg:w-[30rem] mb-8 sm:mb-10 drop-shadow-2xl animate-float"
+              className="relative z-10 w-32 sm:w-36 md:w-40 lg:w-40 mb-2 drop-shadow-2xl animate-float"
             />
           </div>
         </div>

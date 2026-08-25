@@ -25,11 +25,11 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
       className={`bg-transparent z-50 mx-auto w-[90%] rounded-b-2xl pb-[5px] ${className}`}
     >
       <Container className="!px-0 !max-w-none">
-        <nav className="shadow-md surface-navy text-white mx-auto flex justify-between items-center py-4 px-6 md:py-10 md:pr-8 md:pl-5 rounded-b-xl relative overflow-hidden">
+        <nav className="shadow-md surface-navy text-white mx-auto flex justify-between items-center py-3 px-5 md:py-4 md:pr-6 md:pl-4 rounded-b-xl relative overflow-hidden">
           <div className="absolute inset-0 grid-overlay opacity-50 pointer-events-none" />
           <Link href="/" className="relative z-10 flex items-center gap-3">
-            <Image src="/favicon.ico" alt="Logo" width={40} height={40} className="h-8 w-8 sm:h-10 sm:w-10" />
-            <span className="manrope text-lg sm:text-xl md:text-2xl font-semibold text-white cursor-pointer">
+            <Image src="/favicon.ico" alt="Logo" width={40} height={40} className="h-7 w-7 sm:h-8 sm:w-8" />
+            <span className="manrope text-base sm:text-lg md:text-xl font-semibold text-white cursor-pointer">
               {siteDetails.siteName}
             </span>
           </Link>
@@ -38,17 +38,17 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
             <ThemeToggle />
             <button onClick={toggleMenu} className="p-2">
               {isOpen ? (
-                <HiOutlineXMark className="text-white w-7 h-7" />
+                <HiOutlineXMark className="text-white w-6 h-6" />
               ) : (
-                <HiBars3 className="text-white w-7 h-7" />
+                <HiBars3 className="text-white w-6 h-6" />
               )}
             </button>
           </div>
 
-          <ul className="relative z-10 hidden md:flex flex-wrap items-center space-x-6">
+          <ul className="relative z-10 hidden md:flex flex-wrap items-center space-x-5">
             {menuItems.map((item) => (
               <li key={item.text}>
-                <Link href={item.url} className="text-white hover:text-gray-300 transition-colors text-xl lg:text-2xl">
+                <Link href={item.url} className="text-white hover:text-gray-300 transition-colors text-sm lg:text-base">
                   {item.text}
                 </Link>
               </li>
@@ -56,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
             <li>
               <Link
                 href="#cta"
-                className="text-white brand-gradient hover:opacity-90 px-4 py-2 lg:px-6 lg:py-1 rounded-full transition-opacity text-xl lg:text-2xl"
+                className="text-white brand-gradient hover:opacity-90 px-4 py-1.5 lg:px-5 rounded-full transition-opacity text-sm lg:text-base"
               >
                 Coming Soon
               </Link>

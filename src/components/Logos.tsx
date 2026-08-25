@@ -4,14 +4,14 @@ import Image from 'next/image';
 
 const Logos: React.FC = () => {
     return (
-        <section id="logos" className="py-20 px-5 bg-bg relative z-10 overflow-hidden">
+        <section id="logos" className="py-16 px-5 surface-navy text-ink-on-inverse relative z-10 overflow-hidden">
             {/* Background decorative elements */}
             <div className="absolute inset-0 pointer-events-none opacity-40">
                 <div className="absolute top-0 left-1/4 w-64 h-64 bg-accent-via/10 rounded-full blur-3xl" />
                 <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-accent-from/10 rounded-full blur-3xl" />
             </div>
 
-            <p className="text-lg font-medium text-center relative z-10 text-ink">
+            <p className="text-lg font-medium text-center relative z-10 text-ink-on-inverse">
                 Trusted by <span className="text-gradient font-semibold">Leading Pickleball Clubs</span>
             </p>
 

@@ -14,7 +14,6 @@ const HomePage: React.FC = () => {
     <>
       <GetStartedTab />
       <Hero />
-      <Logos />
       <Features />
 
       <section id="pricing" className="relative py-24 lg:py-32 overflow-hidden surface-navy text-ink-on-inverse">
@@ -35,6 +34,8 @@ const HomePage: React.FC = () => {
       <FAQ />
 
       <CommunityGallery />
+
+      <Logos />
 
       <CTA />
     </>

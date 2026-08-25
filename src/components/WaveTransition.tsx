@@ -55,10 +55,10 @@ export default function WaveTransition() {
           />
         </path>
 
-        {/* Foreground wave - fastest. Matches the page bg so the hero blends
-            seamlessly into the section below (navy in dark, off-white in light). */}
+        {/* Foreground wave - fastest. Fills navy to match the surface-navy
+            section below the hero. */}
         <path
-          fill="var(--bg)"
+          fill="var(--navy-1)"
           fillOpacity="1"
           d="M0,80 C360,50 720,110 1080,80 C1260,65 1350,95 1440,80 L1440,120 L0,120 Z"
         >
