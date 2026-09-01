@@ -732,7 +732,7 @@ Anyone can report a child safety concern directly inside the RallySphere app. Ev
 
 You can also block any user from the same menu, which hides their events and clubs from your feeds. Blocking is private \u2014 the blocked person is not notified.
 
-To report directly to us, email safety@rallysphere.com.
+To report directly to us, email info@rallysphere.com.
 
 If a child is in immediate danger, contact your local emergency services first. In the United States, you can also report to the National Center for Missing & Exploited Children (NCMEC) at report.cybertip.org or 1-800-843-5678.
 
@@ -753,13 +753,13 @@ RallySphere complies with all applicable child safety laws in the jurisdictions 
 
 6. Point of Contact
 
-Our designated point of contact for child safety and CSAE compliance matters can be reached at safety@rallysphere.com.
+Our designated point of contact for child safety and CSAE compliance matters can be reached at info@rallysphere.com.
 
 For questions about this policy or any other trust and safety topic, contact:
 
 RallySphere LLC
 Texas, United States
-Email: safety@rallysphere.com
+Email: info@rallysphere.com
 `;
 
 export const EFFECTIVE_DATE = "16th September 2025";
