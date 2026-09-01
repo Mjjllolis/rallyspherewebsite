@@ -704,5 +704,63 @@ Texas, United States
 Email: support@rallysphere.com
 `;
 
+export const CHILD_SAFETY_STANDARDS = `CHILD SAFETY STANDARDS
+
+www.rallysphere.com
+Last updated: 31st August 2026
+
+RallySphere's standards and practices for preventing child sexual abuse and exploitation (CSAE).
+
+1. Our Commitment
+
+RallySphere is a platform for clubs and organizations to run events, sell tickets, and connect with their members. We have zero tolerance for child sexual abuse and exploitation of any kind. Content, conduct, or accounts that sexualize, endanger, or exploit minors are prohibited without exception, and we act on credible reports regardless of where they originate.
+
+2. Prohibited Conduct
+
+The following are banned on RallySphere and result in immediate action:
+
+\u2022 Child sexual abuse material (CSAM) in any form, including images, video, text, or links.
+\u2022 Sexualized depictions or descriptions of minors, whether real, illustrated, or generated.
+\u2022 Grooming, sextortion, or any attempt to solicit, coerce, or arrange sexual contact with a minor.
+\u2022 Using events, clubs, messages, or profiles to make contact with minors for sexual purposes.
+\u2022 Trafficking, advertising, or facilitating the exploitation of a minor.
+\u2022 Sharing links or off-platform contact details for the purpose of any of the above.
+
+3. How to Report a Concern
+
+Anyone can report a child safety concern directly inside the RallySphere app. Every event, club, and profile has a "Report" option in its menu; choose "Child safety" as the reason. Reports filed under that category are escalated for immediate review rather than entering the normal queue.
+
+You can also block any user from the same menu, which hides their events and clubs from your feeds. Blocking is private \u2014 the blocked person is not notified.
+
+To report directly to us, email safety@rallysphere.com.
+
+If a child is in immediate danger, contact your local emergency services first. In the United States, you can also report to the National Center for Missing & Exploited Children (NCMEC) at report.cybertip.org or 1-800-843-5678.
+
+4. How We Respond
+
+Reports of child safety concerns are prioritized above all other report categories. When we receive one, we:
+
+\u2022 Review the reported content, account, and any related activity.
+\u2022 Remove violating content and permanently terminate the accounts responsible.
+\u2022 Preserve relevant records as required for law enforcement.
+\u2022 Report apparent child sexual abuse material to NCMEC, and cooperate with law enforcement and other authorities as required by law.
+
+We do not require a report to act. Where we identify violating content or conduct ourselves, we take the same steps.
+
+5. Legal Compliance
+
+RallySphere complies with all applicable child safety laws in the jurisdictions where we operate, including U.S. federal reporting obligations to NCMEC under 18 U.S.C. \u00a7 2258A. We respond to valid legal process from law enforcement and regional and national authorities.
+
+6. Point of Contact
+
+Our designated point of contact for child safety and CSAE compliance matters can be reached at safety@rallysphere.com.
+
+For questions about this policy or any other trust and safety topic, contact:
+
+RallySphere LLC
+Texas, United States
+Email: safety@rallysphere.com
+`;
+
 export const EFFECTIVE_DATE = "16th September 2025";
 export const SUPPORT_EMAIL = "support@rallysphere.com";
